@@ -1,4 +1,7 @@
 import Link from "next/link";
+import Reveal from "./Reveal";
+import RevealGroup from "./RevealGroup";
+import RevealItem from "./RevealItem";
 
 const patternCells = Array.from({ length: 5 }, (_, row) =>
   Array.from({ length: 5 }, (_, col) => {
@@ -38,59 +41,60 @@ export default function TrainingAreas() {
   return (
     <section className="px-4 py-16 sm:px-8 sm:py-20">
       <div className="mx-auto max-w-(--container-site)">
-        <div className="mx-auto max-w-2xl text-center">
+        <Reveal className="mx-auto max-w-2xl text-center">
           <h2 className="font-heading text-[clamp(28px,3.4vw,40px)] font-extrabold leading-[1.15] text-ink">
             Our Training Areas
           </h2>
           <p className="mt-3 font-body text-sm leading-relaxed text-muted sm:text-base">
             Practical, industry-aligned programmes designed to build real skills and open doors.
           </p>
-        </div>
+        </Reveal>
 
-        <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <RevealGroup className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {areas.map((area) => (
-            <Link
-              key={area.href}
-              href={area.href}
-              className="group relative flex flex-col items-center gap-3 overflow-hidden rounded-card bg-surface p-5 text-center transition-all duration-200 hover:-translate-y-1 hover:bg-navy hover:shadow-md"
-            >
-              <div className="pointer-events-none absolute -right-2 -top-2 grid grid-cols-5 gap-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                {patternCells.map((opacity, i) => (
-                  <span
-                    key={i}
-                    className="h-2.5 w-2.5 rounded-xs bg-white"
-                    style={{ opacity }}
-                  />
-                ))}
-              </div>
+            <RevealItem key={area.href}>
+              <Link
+                href={area.href}
+                className="group relative flex h-full flex-col items-center gap-3 overflow-hidden rounded-card bg-surface p-5 text-center transition-all duration-200 hover:-translate-y-1 hover:bg-navy hover:shadow-md"
+              >
+                <div className="pointer-events-none absolute -right-2 -top-2 grid grid-cols-5 gap-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                  {patternCells.map((opacity, i) => (
+                    <span
+                      key={i}
+                      className="h-2.5 w-2.5 rounded-xs bg-white"
+                      style={{ opacity }}
+                    />
+                  ))}
+                </div>
 
-              <span className="relative inline-flex h-10 w-10 items-center justify-center rounded-full bg-white text-navy shadow-sm">
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  {area.icon}
-                </svg>
-              </span>
-              <h3 className="relative font-heading text-[15px] font-bold text-ink transition-colors group-hover:text-white">
-                {area.title}
-              </h3>
-              <p className="relative font-body text-xs leading-relaxed text-muted transition-colors group-hover:text-on-navy">
-                {area.description}
-              </p>
-              <span className="relative mt-auto font-body text-xs font-semibold text-navy transition-colors group-hover:text-white group-hover:underline">
-                Learn more →
-              </span>
-            </Link>
+                <span className="relative inline-flex h-10 w-10 items-center justify-center rounded-full bg-white text-navy shadow-sm">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    {area.icon}
+                  </svg>
+                </span>
+                <h3 className="relative font-heading text-[15px] font-bold text-ink transition-colors group-hover:text-white">
+                  {area.title}
+                </h3>
+                <p className="relative font-body text-xs leading-relaxed text-muted transition-colors group-hover:text-on-navy">
+                  {area.description}
+                </p>
+                <span className="relative mt-auto font-body text-xs font-semibold text-navy transition-colors group-hover:text-white group-hover:underline">
+                  Learn more →
+                </span>
+              </Link>
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
       </div>
     </section>
   );

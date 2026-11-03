@@ -1,7 +1,12 @@
 import Link from "next/link";
 import type { ComponentPropsWithoutRef } from "react";
 
-type Variant = "primary" | "secondary" | "secondaryOnDark" | "accent";
+type Variant =
+  | "primary"
+  | "secondary"
+  | "secondaryOnDark"
+  | "accent"
+  | "solid";
 
 const base =
   "inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-7 font-body text-base font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
@@ -15,6 +20,7 @@ const variants: Record<Variant, string> = {
     "border-[1.5px] border-white bg-transparent text-white hover:bg-white/10 focus-visible:ring-white",
   accent:
     "bg-orange text-navy-dark hover:opacity-90 focus-visible:ring-orange",
+  solid: "bg-navy text-white hover:bg-navy-dark focus-visible:ring-navy",
 };
 
 type ButtonProps = ComponentPropsWithoutRef<"button"> & {

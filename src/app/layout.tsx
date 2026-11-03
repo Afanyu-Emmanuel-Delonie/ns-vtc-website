@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Manrope, Inter } from "next/font/google";
+import { MotionConfig } from "motion/react";
 import Nav from "./components/Nav";
+import Footer from "./components/Footer";
+import BackToTop from "./components/BackToTop";
+import PageLoader from "./components/PageLoader";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -24,9 +28,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${manrope.variable} ${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        <Nav />
-        {children}
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>
+        <MotionConfig reducedMotion="user">
+          <PageLoader />
+          <Nav />
+          {children}
+          <Footer />
+          <BackToTop />
+        </MotionConfig>
       </body>
     </html>
   );
