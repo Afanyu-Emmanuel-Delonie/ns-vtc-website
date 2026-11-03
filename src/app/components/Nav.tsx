@@ -1,29 +1,35 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { LinkButton } from "./Button";
-import LanguageSwitcher from "./LanguageSwitcher";
 
 const links = [
   { href: "/programs", label: "Courses" },
   { href: "/corporate-training", label: "For Companies" },
   { href: "/admissions", label: "Admissions" },
   { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+  { href: "/#contact", label: "Contact" },
 ];
 
+const darkHeroRoutes = ["/", "/about"];
+
 export default function Nav() {
+  const pathname = usePathname();
+  const hasDarkHero = darkHeroRoutes.includes(pathname);
+
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
+    if (!hasDarkHero) return;
     const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [hasDarkHero]);
 
-  const transparent = !scrolled && !mobileOpen;
+  const transparent = hasDarkHero && !scrolled && !mobileOpen;
 
   return (
     <header
@@ -44,23 +50,29 @@ export default function Nav() {
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`font-body text-[15px] font-medium transition-colors ${
-                transparent
-                  ? "text-white/90 hover:text-white"
-                  : "text-ink hover:text-navy"
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {links.map((link) => {
+            const active = pathname === link.href && !link.href.includes("#");
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`relative font-body text-[15px] font-medium transition-colors after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:rounded-full after:transition-transform after:duration-200 ${
+                  transparent
+                    ? `text-white/90 hover:text-white after:bg-white ${
+                        active ? "after:scale-x-100" : "after:scale-x-0 hover:after:scale-x-100"
+                      }`
+                    : `hover:text-navy after:bg-navy ${
+                        active ? "text-navy after:scale-x-100" : "text-ink after:scale-x-0 hover:after:scale-x-100"
+                      }`
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </nav>
 
-        <div className="hidden items-center gap-4 md:flex">
-          <LanguageSwitcher transparent={transparent} />
+        <div className="hidden items-center gap-6 md:flex">
           <LinkButton href="/register" variant={transparent ? "secondaryOnDark" : "accent"}>
             Apply Now
           </LinkButton>
@@ -99,20 +111,24 @@ export default function Nav() {
       {mobileOpen && (
         <div id="mobile-nav" className="border-t border-border bg-white px-4 py-4 md:hidden">
           <nav className="flex flex-col" aria-label="Primary">
-            {links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileOpen(false)}
-                className="rounded-control px-2 py-3 font-body text-base font-medium text-ink hover:bg-surface"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {links.map((link) => {
+              const active = pathname === link.href && !link.href.includes("#");
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileOpen(false)}
+                  className={`rounded-control px-2 py-3 font-body text-base font-medium transition-colors hover:bg-surface ${
+                    active ? "text-navy font-semibold" : "text-ink"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </nav>
-          <div className="mt-4 flex items-center justify-between gap-4">
-            <LanguageSwitcher transparent={false} />
-            <LinkButton href="/register" variant="accent" className="flex-1">
+          <div className="mt-4">
+            <LinkButton href="/register" variant="accent" className="w-full">
               Apply Now
             </LinkButton>
           </div>
