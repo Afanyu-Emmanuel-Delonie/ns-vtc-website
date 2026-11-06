@@ -105,7 +105,7 @@ export default function Hero() {
       )}
 
       {/* overlay */}
-      <div className="absolute inset-0 bg-black/60" />
+      <div className="absolute inset-0 bg-black/40" />
 
       {/* content */}
       <AnimatePresence mode="wait">
