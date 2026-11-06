@@ -16,7 +16,7 @@ const slides = [
     sub: "Hands-on vocational training designed to get you job-ready from day one.",
   },
   {
-    image: "/assets/hero3.png",
+    image: "/assets/hero.png",
     heading: <>Your Career<br />Starts Here.</>,
     sub: "Join NS-VTC and take the first step toward becoming a skilled, confident professional.",
   },
@@ -83,7 +83,7 @@ export default function Hero() {
       // preload the one after next
       const afterNext = (nextIndex + 1) % slides.length;
       preloadNext(afterNext);
-    }, 4000);
+    }, 5000);
 
     return () => clearTimeout(timer);
   }, [current, loaded, preloadNext]);

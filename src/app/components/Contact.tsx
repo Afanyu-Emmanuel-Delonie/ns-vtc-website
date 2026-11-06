@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Button } from "./Button";
 import CourseSelect from "./CourseSelect";
 import Reveal from "./Reveal";
@@ -154,10 +155,15 @@ export default function Contact() {
             </Button>
           </form>
 
-          <div
-            className="relative hidden min-h-full flex-col justify-between bg-cover bg-center p-8 lg:flex"
-            style={{ backgroundImage: "url('/assets/hero2.png')" }}
-          >
+          <div className="relative hidden min-h-full flex-col justify-between p-8 lg:flex">
+            <Image
+              src="/assets/hero2.png"
+              alt="NS-VTC campus in Rilima Sector, Bugesera District"
+              fill
+              sizes="30vw"
+              className="object-cover"
+              loading="lazy"
+            />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/30" />
 
             <div className="pointer-events-none absolute -right-3 -top-3 z-10 grid grid-cols-6 gap-1">

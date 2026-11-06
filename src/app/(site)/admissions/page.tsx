@@ -7,8 +7,11 @@ import RevealItem from "../../components/RevealItem";
 import FeaturedCourses from "../../components/FeaturedCourses";
 
 export const metadata: Metadata = {
-  title: "Admissions | NS-VTC",
-  description: "Find out how to apply and join a training program at Newton Safety and Vocational Training Center.",
+  title: "Admissions",
+  description:
+    "Find out how to apply and join a training program at NS-VTC. Learn about entry requirements, the application process and accommodation in Bugesera, Rwanda.",
+  alternates: { canonical: "/admissions" },
+  openGraph: { url: "/admissions" },
 };
 
 const steps = [
