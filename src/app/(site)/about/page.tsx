@@ -8,9 +8,11 @@ import OurCommitment from "../../components/OurCommitment";
 import TrainingApproach from "../../components/TrainingApproach";
 
 export const metadata: Metadata = {
-  title: "About Us | NS-VTC",
+  title: "About Us",
   description:
-    "Learn about Newton Safety and Vocational Training Center (NS-VTC) — our vision, mission, core values and training approach.",
+    "Learn about Newton Safety and Vocational Training Center (NS-VTC) — our vision, mission, core values and training approach in Bugesera District, Rwanda.",
+  alternates: { canonical: "/about" },
+  openGraph: { url: "/about" },
 };
 
 export default function AboutPage() {
