@@ -4,6 +4,7 @@
   /* Brand */
   --color-navy: #003262;
   --color-navy-dark: #00264a;
+  --color-navy-deeper: #0a1628;
   --color-orange: #f28c1e;
 
   /* Text */
@@ -17,7 +18,7 @@
   --color-surface: #f3f5f7;
   --color-border: #dce2e8;
   --color-input: #7b8794;
-  --color-footer-line: #3d5a78;
+  --color-footer-line: #1e2d3d;
 
   /* Placeholder content */
   --color-todo: #8a4b00;

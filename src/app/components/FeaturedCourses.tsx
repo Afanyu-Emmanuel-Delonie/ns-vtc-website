@@ -106,7 +106,7 @@ export default function FeaturedCourses() {
           whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
           variants={grid}
-          className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4"
+          className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
         >
           {courses.map((c) => (
             <motion.div key={c.href} variants={card} transition={{ duration: 0.4, ease: "easeOut" }}>

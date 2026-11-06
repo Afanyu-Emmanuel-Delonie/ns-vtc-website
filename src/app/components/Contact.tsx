@@ -156,7 +156,7 @@ export default function Contact() {
 
           <div
             className="relative hidden min-h-full flex-col justify-between bg-cover bg-center p-8 lg:flex"
-            style={{ backgroundImage: "url('/assets/contact.png')" }}
+            style={{ backgroundImage: "url('/assets/hero2.png')" }}
           >
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/30" />
 
