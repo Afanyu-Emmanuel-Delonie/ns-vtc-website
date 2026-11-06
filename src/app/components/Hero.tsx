@@ -11,12 +11,12 @@ const slides = [
     sub: "Empowering young people through practical skills, technical education, and workplace safety training.",
   },
   {
-    image: "/assets/hero1.png",
+    image: "/assets/hero4.png",
     heading: <>Learn. Practice.<br />Develop. Succeed.</>,
     sub: "Hands-on vocational training designed to get you job-ready from day one.",
   },
   {
-    image: "/assets/hero.png",
+    image: "/assets/hero3.png",
     heading: <>Your Career<br />Starts Here.</>,
     sub: "Join NS-VTC and take the first step toward becoming a skilled, confident professional.",
   },

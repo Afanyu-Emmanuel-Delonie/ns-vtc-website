@@ -29,9 +29,9 @@ export default function OurCommitment() {
           <h2 className="mt-2 font-heading text-[clamp(28px,3.4vw,40px)] font-extrabold leading-[1.15] text-white">
             Our Commitment
           </h2>
-          <span className="mt-3 block h-[3px] w-12 rounded-full bg-orange" aria-hidden="true" />
+          
           <p className="mt-4 font-body text-[15px] leading-[1.6] text-on-navy">
-            Every program we run is anchored on the same set of promises —
+            Every program we run is anchored on the same set of promises
             to our trainees, their families and the employers who rely on
             the skills we build.
           </p>

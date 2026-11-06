@@ -52,11 +52,11 @@ export default function CoreValues() {
     <section className="px-[clamp(16px,5vw,64px)] py-[clamp(48px,6vw,80px)]">
       <div className="mx-auto max-w-(--container-site)">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <span className="text-xs font-bold uppercase tracking-widest text-orange">What We Stand For</span>
+         
           <h2 className="mt-2 font-heading text-2xl font-extrabold text-ink sm:text-3xl">
             Our Core Values
           </h2>
-          <span className="mt-3 mx-auto block h-[3px] w-12 rounded-full bg-navy" aria-hidden="true" />
+         
           <p className="mt-4 text-sm leading-relaxed text-muted sm:text-base">
             The principles that guide how we train, support and prepare every learner at NS-VTC.
           </p>
