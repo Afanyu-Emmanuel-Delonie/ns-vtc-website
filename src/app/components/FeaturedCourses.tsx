@@ -12,7 +12,7 @@ const patternCells = Array.from({ length: 5 }, (_, row) =>
 
 const courses = [
   {
-    href: "/programs/scaffolding",
+    href: "/register?course=Scaffolding",
     title: "Scaffolding",
     duration: null,
     description: "Practical construction access and scaffolding skills.",
@@ -21,14 +21,14 @@ const courses = [
     ),
   },
   {
-    href: "/programs/steel-fixing",
+    href: "/register?course=Steel+Fixing",
     title: "Steel Fixing",
     duration: null,
     description: "Reinforcement steel preparation and installation.",
     icon: <path d="M4 20 20 4M4 4l16 16M9 4v5M4 9h5M15 20v-5M20 15h-5" />,
   },
   {
-    href: "/programs/tailoring",
+    href: "/register?course=Tailoring+(6+Months)",
     title: "Tailoring",
     duration: "6 Months",
     description: "Garment making, sewing and clothing design skills.",
@@ -37,21 +37,21 @@ const courses = [
     ),
   },
   {
-    href: "/programs/welding",
+    href: "/register?course=Welding+(6+Months)",
     title: "Welding",
     duration: "6 Months",
     description: "Metal fabrication and welding techniques.",
     icon: <path d="m3 21 7-7M10 14 20.5 3.5a1.5 1.5 0 0 1 2 2L12 16M14 7l3 3M6 16l2 2M3 21l2.5-1.5L3 17.5 2 21Z" />,
   },
   {
-    href: "/programs/carpentry",
+    href: "/register?course=Carpentry",
     title: "Carpentry",
     duration: null,
     description: "Woodworking, furniture making and construction skills.",
     icon: <path d="m14.5 2.5 7 7L9 22H2v-7Z M12.5 4.5l7 7" />,
   },
   {
-    href: "/programs/painting",
+    href: "/register?course=Painting",
     title: "Painting",
     duration: null,
     description: "Surface preparation and professional painting techniques.",
@@ -60,14 +60,14 @@ const courses = [
     ),
   },
   {
-    href: "/programs/hse",
+    href: "/register?course=HSE+Training+(3+Months)",
     title: "HSE",
     duration: "3 Months",
     description: "Workplace health, safety and environmental protection.",
     icon: <path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3Zm0 6v6m0 4h.01" />,
   },
   {
-    href: "/programs/masonry",
+    href: "/register?course=Masonry+(3+Months)",
     title: "Masonry",
     duration: "3 Months",
     description: "Bricklaying, concrete work and building construction.",

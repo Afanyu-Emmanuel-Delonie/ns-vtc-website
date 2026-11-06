@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import CourseSelect from "../components/CourseSelect";
 import { Button } from "../components/Button";
 
@@ -22,8 +22,12 @@ const courses = [
 const inputClass =
   "min-h-11 w-full rounded-control border border-border bg-white px-3 font-body text-sm text-ink placeholder:text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-2";
 
-export default function RegisterPage() {
+function RegisterForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const preselected = searchParams.get("course") ?? "Select a course";
+  const defaultCourse = courses.includes(preselected) ? preselected : "Select a course";
+
   const [submitted, setSubmitted] = useState(false);
 
   function handleSubmit(e: React.FormEvent) {
@@ -66,7 +70,6 @@ export default function RegisterPage() {
           </div>
         ) : (
           <div className="rounded-3xl border border-border bg-white p-8 shadow-sm sm:p-10">
-            {/* Header */}
             <div className="mb-8 border-b border-border pb-6">
               <span className="text-xs font-bold uppercase tracking-widest text-orange">NS-VTC</span>
               <h1 className="mt-1 font-heading text-2xl font-extrabold text-ink">Apply for Training</h1>
@@ -74,7 +77,6 @@ export default function RegisterPage() {
             </div>
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-              {/* Name row */}
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <label htmlFor="firstName" className="mb-1.5 block text-sm font-medium text-ink">First Name *</label>
@@ -86,7 +88,6 @@ export default function RegisterPage() {
                 </div>
               </div>
 
-              {/* Contact row */}
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <label htmlFor="phone" className="mb-1.5 block text-sm font-medium text-ink">Phone Number *</label>
@@ -98,7 +99,6 @@ export default function RegisterPage() {
                 </div>
               </div>
 
-              {/* Location */}
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <label htmlFor="district" className="mb-1.5 block text-sm font-medium text-ink">District *</label>
@@ -111,10 +111,8 @@ export default function RegisterPage() {
                 />
               </div>
 
-              {/* Course */}
-              <CourseSelect label="Course of Interest *" name="course" options={courses} />
+              <CourseSelect label="Course of Interest *" name="course" options={courses} defaultValue={defaultCourse} />
 
-              {/* Accommodation */}
               <div>
                 <p className="mb-2 text-sm font-medium text-ink">Do you need accommodation? *</p>
                 <div className="flex gap-6">
@@ -127,13 +125,11 @@ export default function RegisterPage() {
                 </div>
               </div>
 
-              {/* Message */}
               <div>
                 <label htmlFor="message" className="mb-1.5 block text-sm font-medium text-ink">Additional Information</label>
                 <textarea id="message" name="message" rows={4} placeholder="Any questions, previous experience or anything else you'd like us to know..." className="w-full rounded-control border border-border bg-white px-3 py-2.5 font-body text-sm text-ink placeholder:text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-2" />
               </div>
 
-              {/* Notice */}
               <p className="rounded-card bg-surface px-4 py-3 text-xs leading-relaxed text-muted">
                 By submitting this form you agree to be contacted by NS-VTC regarding your application. Your information will not be shared with third parties.
               </p>
@@ -146,5 +142,13 @@ export default function RegisterPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function RegisterPage() {
+  return (
+    <Suspense>
+      <RegisterForm />
+    </Suspense>
   );
 }
