@@ -26,9 +26,9 @@ export default function WhoWeAre() {
 
           <Reveal delay={0.2} className="grid grid-cols-3 items-center gap-3">
             {[
-              { src: "/assets/hero.png", h: "h-52 sm:h-60" },
-              { src: "/assets/contact.png", h: "h-72 sm:h-80" },
-              { src: "/assets/hero.png", h: "h-52 sm:h-60" },
+              { src: "/assets/about1.png", h: "h-52 sm:h-60" },
+              { src: "/assets/about.png", h: "h-72 sm:h-80" },
+              { src: "/assets/about2.png", h: "h-52 sm:h-60" },
             ].map(({ src, h }, i) => (
               <div
                 key={i}

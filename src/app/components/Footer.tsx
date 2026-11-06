@@ -19,11 +19,12 @@ const programLinks = [
   { href: "/programs", label: "All Courses" },
 ];
 
-const resourceLinks = [
-  { href: "/resources/news", label: "News & Updates" },
-  { href: "/resources/gallery", label: "Gallery" },
-  { href: "/resources/faqs", label: "FAQs" },
-  { href: "/resources/guidelines", label: "Student Guidelines" },
+const contactInfo = [
+  { label: "+250 788 986 489", href: "tel:+250788986489" },
+  { label: "+250 799 528 247", href: "tel:+250799528247" },
+  { label: "+250 799 524 906", href: "tel:+250799524906" },
+  { label: "newtonvtc@gmail.com", href: "mailto:newtonvtc@gmail.com" },
+  { label: "Rilima Sector, Bugesera District, Eastern Province, Rwanda", href: "/#contact" },
 ];
 
 const socials = [
@@ -80,7 +81,7 @@ function FooterColumn({
           <li key={link.href}>
             <Link
               href={link.href}
-              className="font-body text-sm text-on-navy transition-colors hover:text-white"
+              className="font-body text-sm text-white/60 transition-colors hover:text-white"
             >
               {link.label}
             </Link>
@@ -98,23 +99,22 @@ export default function Footer() {
     setYear(new Date().getFullYear());
   }, []);
   return (
-    <footer className="bg-[#0d0d0d] px-[clamp(16px,5vw,64px)] pt-[clamp(40px,5vw,64px)]">
+    <footer className="bg-navy-deeper px-[clamp(16px,5vw,64px)] pt-[clamp(40px,5vw,64px)]">
       <div className="mx-auto max-w-(--container-site)">
 
         {/* CTA band */}
         <div className="mb-12 flex flex-col items-center gap-6 rounded-[28px] px-8 py-10 text-center sm:px-12 sm:py-12">
           <div className="max-w-xl">
             <h2 className="font-heading text-[clamp(24px,3vw,36px)] font-extrabold leading-tight text-white">
-              Start Building Your Future Today
+              Ready to Apply? Start Here.
             </h2>
-            <p className="mt-3 text-sm leading-relaxed text-on-navy">
-              Join NS-VTC and take the first step toward becoming a skilled,
-              confident and productive professional.
+            <p className="mt-3 text-sm leading-relaxed text-white/60">
+              Fill in the registration form and our team will get back to you with your intake details and start date.
             </p>
           </div>
           <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-            <LinkButton href="/register" variant="primary">Register Today</LinkButton>
-            <LinkButton href="#contact" variant="secondaryOnDark">Contact Us</LinkButton>
+            <LinkButton href="/register" variant="primary">Apply Now</LinkButton>
+            <LinkButton href="/admissions" variant="secondaryOnDark">Learn More</LinkButton>
           </div>
         </div>
 
@@ -126,7 +126,7 @@ export default function Footer() {
             >
               NS-VTC
             </Link>
-            <p className="mt-4 max-w-xs font-body text-sm leading-[1.6] text-on-navy">
+            <p className="mt-4 max-w-xs font-body text-sm leading-[1.6] text-white/60">
               Newton Safety and Vocational Training Center (NS-VTC) is
               committed to empowering individuals through practical
               vocational education, technical skills development and
@@ -148,15 +148,29 @@ export default function Footer() {
 
           <FooterColumn title="Quick Links" links={quickLinks} />
           <FooterColumn title="Programs" links={programLinks} />
-          <FooterColumn title="Resources" links={resourceLinks} />
+          <div>
+            <p className="font-heading text-sm font-bold text-white">Contact Us</p>
+            <ul className="mt-4 flex flex-col gap-3">
+              {contactInfo.map((item) => (
+                <li key={item.label}>
+                  <a
+                    href={item.href}
+                    className="font-body text-sm leading-snug text-white/60 transition-colors hover:text-white"
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         <div className="flex flex-col items-center justify-between gap-4 border-t border-footer-line py-6 sm:flex-row">
-          <p className="font-body text-xs text-on-navy">
+          <p className="font-body text-xs text-white/50">
             &copy; {year} Newton Safety and Vocational
             Training Center. All rights reserved.
           </p>
-          <p className="font-body text-xs text-on-navy">
+          <p className="font-body text-xs text-white/50">
             Rilima Sector, Bugesera District, Eastern Province, Rwanda
           </p>
         </div>
