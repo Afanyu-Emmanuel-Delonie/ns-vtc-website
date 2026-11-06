@@ -1,2 +1,2 @@
-import StillBuilding from "../components/StillBuilding";
+import StillBuilding from "../../components/StillBuilding";
 export default function Page() { return <StillBuilding page="Programs" />; }

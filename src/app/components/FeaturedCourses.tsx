@@ -160,7 +160,7 @@ export default function FeaturedCourses() {
                 </p>
 
                 <span className="mt-auto font-body text-xs font-semibold text-navy transition-colors group-hover:text-white group-hover:underline">
-                  View Course &rarr;
+                  Apply for this Course &rarr;
                 </span>
               </Link>
             </motion.div>

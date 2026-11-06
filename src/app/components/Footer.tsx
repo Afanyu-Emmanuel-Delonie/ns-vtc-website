@@ -106,16 +106,15 @@ export default function Footer() {
         <div className="mb-12 flex flex-col items-center gap-6 rounded-[28px] px-8 py-10 text-center sm:px-12 sm:py-12">
           <div className="max-w-xl">
             <h2 className="font-heading text-[clamp(24px,3vw,36px)] font-extrabold leading-tight text-white">
-              Start Building Your Future Today
+              Ready to Apply? Start Here.
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-white/60">
-              Join NS-VTC and take the first step toward becoming a skilled,
-              confident and productive professional.
+              Fill in the registration form and our team will get back to you with your intake details and start date.
             </p>
           </div>
           <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-            <LinkButton href="/register" variant="primary">Register Today</LinkButton>
-            <LinkButton href="#contact" variant="secondaryOnDark">Contact Us</LinkButton>
+            <LinkButton href="/register" variant="primary">Apply Now</LinkButton>
+            <LinkButton href="/admissions" variant="secondaryOnDark">Learn More</LinkButton>
           </div>
         </div>
 

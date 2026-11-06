@@ -21,7 +21,7 @@ const links = [
   { href: "/#contact", label: "Contact" },
 ];
 
-const darkHeroRoutes = ["/", "/about"];
+const darkHeroRoutes = ["/", "/about", "/admissions"];
 
 export default function Nav() {
   const pathname = usePathname();
