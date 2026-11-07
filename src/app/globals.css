@@ -2,15 +2,15 @@
 
 @theme {
   /* Brand */
-  --color-navy: #003262;
-  --color-navy-dark: #00264a;
-  --color-navy-deeper: #0a1628;
-  --color-orange: #f28c1e;
+  --color-navy: #010B3B;
+  --color-navy-dark: #010830;
+  --color-navy-deeper: #010626;
+  --color-orange: #F99B01;
 
   /* Text */
-  --color-ink: #1c2733;
-  --color-body: #3d4b59;
-  --color-muted: #52606d;
+  --color-ink: #3C3C3C;
+  --color-body: #3C3C3C;
+  --color-muted: #6b6b6b;
   --color-on-navy: #e6ecf2;
 
   /* Surfaces and lines */

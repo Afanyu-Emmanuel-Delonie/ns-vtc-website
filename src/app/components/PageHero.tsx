@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { LinkButton } from "./Button";
 
 const patternCells = Array.from({ length: 6 }, (_, row) =>
   Array.from({ length: 6 }, (_, col) => {
@@ -7,14 +8,17 @@ const patternCells = Array.from({ length: 6 }, (_, row) =>
   })
 ).flat();
 
+type Action = { href: string; label: string; variant: "primary" | "secondary" | "secondaryOnDark" | "accent" };
+
 type Props = {
   eyebrow?: string;
   title: string;
   description?: ReactNode;
   image?: string;
+  actions?: Action[];
 };
 
-export default function PageHero({ eyebrow, title, description, image }: Props) {
+export default function PageHero({ eyebrow, title, description, image, actions }: Props) {
   return (
     <section
       className={`relative flex min-h-[45vh] w-full items-center overflow-hidden bg-navy-dark${image ? " bg-cover bg-center" : ""}`}
@@ -45,6 +49,13 @@ export default function PageHero({ eyebrow, title, description, image }: Props) 
           <p className="max-w-xl font-body text-sm leading-relaxed text-white/70 sm:text-base">
             {description}
           </p>
+        )}
+        {actions && actions.length > 0 && (
+          <div className="mt-2 flex flex-col gap-3 sm:flex-row">
+            {actions.map((a) => (
+              <LinkButton key={a.href} href={a.href} variant={a.variant}>{a.label}</LinkButton>
+            ))}
+          </div>
         )}
       </div>
     </section>

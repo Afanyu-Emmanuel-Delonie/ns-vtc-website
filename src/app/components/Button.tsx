@@ -9,11 +9,11 @@ type Variant =
   | "solid";
 
 const base =
-  "inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-7 font-body text-base font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
+  "inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-7 font-body text-base font-semibold no-underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-white text-navy-dark hover:bg-white/90 focus-visible:ring-white",
+    "bg-orange text-navy-dark hover:opacity-90 focus-visible:ring-orange",
   secondary:
     "border-[1.5px] border-navy bg-transparent text-navy hover:bg-navy/5 focus-visible:ring-navy",
   secondaryOnDark:

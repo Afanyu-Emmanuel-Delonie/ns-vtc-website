@@ -24,13 +24,13 @@ const areas = [
     icon: <path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3Zm0 6v6m0 4h.01" />,
   },
   {
-    href: "/programs/corporate",
+    href: "/corporate-training",
     title: "Corporate Training",
     description: "Build employee competence and workplace safety for your organisation.",
     icon: <path d="M3 21h18M6 21V8a1 1 0 0 1 1-1h3v14M14 21V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v17M9 11h.01M9 15h.01" />,
   },
   {
-    href: "/programs/skills",
+    href: "/programs/tvet",
     title: "Skills Development",
     description: "Hands-on exercises that build real confidence and practical competence.",
     icon: <path d="m12 2 2.9 6.26L22 9.27l-5 4.73L18.2 21 12 17.27 5.8 21 7 14l-5-4.73 7.1-1.01L12 2Z" />,
@@ -52,7 +52,7 @@ export default function TrainingAreas() {
 
         <RevealGroup className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {areas.map((area) => (
-            <RevealItem key={area.href}>
+            <RevealItem key={area.title}>
               <Link
                 href={area.href}
                 className="group relative flex h-full flex-col items-center gap-3 overflow-hidden rounded-card bg-surface p-5 text-center transition-all duration-200 hover:-translate-y-1 hover:bg-navy hover:shadow-md"

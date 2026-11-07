@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 import { LinkButton } from "./Button";
+import { CONTACT } from "../constants";
 
 const faqs = [
   {
     question: "Where is NS-VTC located?",
-    answer:
-      "We are located in Rilima Sector, Bugesera District, Eastern Province, Rwanda.",
+    answer: `We are located in ${CONTACT.address.full}.`,
   },
   {
     question: "Which courses do you offer?",
