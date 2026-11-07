@@ -5,8 +5,7 @@ import Reveal from "../../../components/Reveal";
 import RevealGroup from "../../../components/RevealGroup";
 import RevealItem from "../../../components/RevealItem";
 import { LinkButton } from "../../../components/Button";
-import { openPositions, getPosition, deptColors } from "../data";
-import { CONTACT } from "../../../constants";
+import { CONTACT, openPositions, getPosition, deptColors } from "../../../constants";
 
 type Props = { params: Promise<{ slug: string }> };
 

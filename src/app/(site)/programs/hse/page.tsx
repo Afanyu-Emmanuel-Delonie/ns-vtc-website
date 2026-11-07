@@ -8,7 +8,7 @@ import RevealGroup from "../../../components/RevealGroup";
 import RevealItem from "../../../components/RevealItem";
 import { LinkButton } from "../../../components/Button";
 import AdmissionSections from "../../../components/AdmissionSections";
-import { hseTopics, whoShouldJoin, careerPathways, row } from "./constants";
+import { hseTopics, whoShouldJoin, careerPathways, hseRow } from "../../../constants";
 
 export default function HsePage() {
   return (
@@ -96,7 +96,7 @@ export default function HsePage() {
               {whoShouldJoin.map((item) => (
                 <motion.li
                   key={item.title}
-                  variants={row}
+                  variants={hseRow}
                   transition={{ duration: 0.5, ease: "easeOut" }}
                   className="relative flex gap-5"
                 >
