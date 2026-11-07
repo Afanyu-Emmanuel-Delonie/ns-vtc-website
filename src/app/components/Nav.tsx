@@ -1,35 +1,52 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import { LinkButton } from "./Button";
 
-const dropdownItems = [
-  { href: "/programs/tvet", label: "TVET Training" },
-  { href: "/programs/hse", label: "HSE Training" },
-  { href: "/corporate-training", label: "Corporate Training" },
-  { href: "/careers", label: "Careers" },
-  { href: "/resources", label: "Resources" },
+const trainingAreas = [
+  {
+    href: "/programs/tvet",
+    label: "TVET Training",
+    subItems: [
+      { href: "/programs/scaffolding", label: "Scaffolding" },
+      { href: "/programs/steel-fixing", label: "Steel Fixing" },
+      { href: "/programs/tailoring", label: "Tailoring" },
+      { href: "/programs/welding", label: "Welding" },
+      { href: "/programs/carpentry", label: "Carpentry" },
+      { href: "/programs/painting", label: "Painting" },
+      { href: "/programs/masonry", label: "Masonry" },
+    ],
+  },
+  { href: "/programs/hse", label: "HSE Training", subItems: [] },
+  { href: "/corporate-training", label: "Corporate Training", subItems: [] },
 ];
 
 const links = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About Us" },
   { href: "/programs", label: "Programs", dropdown: true },
-  { href: "/admissions", label: "Admissions" },
+  { href: "/careers", label: "Careers" },
   { href: "/#contact", label: "Contact" },
 ];
 
-const darkHeroRoutes = ["/", "/about", "/admissions"];
+const darkHeroRoutes = ["/", "/about"];
+const darkHeroPrefixes = ["/programs", "/corporate-training", "/careers"];
 
 export default function Nav() {
   const pathname = usePathname();
-  const hasDarkHero = darkHeroRoutes.includes(pathname);
+  const hasDarkHero =
+    darkHeroRoutes.includes(pathname) ||
+    darkHeroPrefixes.some((prefix) => pathname.startsWith(prefix));
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [hoveredArea, setHoveredArea] = useState<string | null>(null);
+  const [mobileProgramsOpen, setMobileProgramsOpen] = useState(false);
+  const [mobileTvetOpen, setMobileTvetOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -67,11 +84,15 @@ export default function Nav() {
       }`}
     >
       <div className="mx-auto flex h-20 w-full max-w-(--container-site) items-center justify-between px-4 sm:px-8">
-        <Link
-          href="/"
-          className={`font-heading text-xl font-extrabold transition-colors ${transparent ? "text-white" : "text-navy"}`}
-        >
-          NS-VTC
+        <Link href="/" className="flex items-center">
+          <Image
+            src={transparent ? "/assets/logos/logo-2.svg" : "/assets/logos/logo-1.svg"}
+            alt="NS-VTC"
+            width={180}
+            height={60}
+            priority
+            className="h-12 w-auto"
+          />
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
@@ -89,17 +110,54 @@ export default function Nav() {
                 </button>
 
                 {dropdownOpen && (
-                  <div className="absolute left-1/2 top-full mt-3 w-52 -translate-x-1/2 rounded-xl border border-border bg-white py-2 shadow-lg">
-                    {dropdownItems.map((item) => (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        onClick={() => setDropdownOpen(false)}
-                        className="block px-4 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-surface hover:text-navy"
-                      >
-                        {item.label}
-                      </Link>
-                    ))}
+                  <div className="absolute left-1/2 top-full mt-3 flex -translate-x-1/2 rounded-xl border border-border bg-white shadow-lg overflow-hidden">
+                    {/* Training Areas column */}
+                    <div className="w-52 p-3">
+                      <p className="px-2 font-body text-[11px] font-bold uppercase tracking-widest text-muted mb-1">
+                        Training Areas
+                      </p>
+                      {trainingAreas.map((area) => (
+                        <Link
+                          key={area.href}
+                          href={area.href}
+                          onClick={() => setDropdownOpen(false)}
+                          onMouseEnter={() => setHoveredArea(area.label)}
+                          className={`flex items-center justify-between rounded-control px-2 py-2 text-sm font-medium text-ink transition-colors hover:bg-surface hover:text-navy ${
+                            hoveredArea === area.label ? "bg-surface text-navy" : ""
+                          }`}
+                        >
+                          {area.label}
+                          {area.subItems.length > 0 && (
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                              <path d="m9 18 6-6-6-6" />
+                            </svg>
+                          )}
+                        </Link>
+                      ))}
+                    </div>
+
+                    {/* Sub-items panel */}
+                    {(() => {
+                      const active = trainingAreas.find((a) => a.label === hoveredArea);
+                      if (!active || active.subItems.length === 0) return null;
+                      return (
+                        <div className="w-48 border-l border-border bg-surface/40 p-3">
+                          <p className="px-2 font-body text-[11px] font-bold uppercase tracking-widest text-muted mb-1">
+                            {active.label}
+                          </p>
+                          {active.subItems.map((sub) => (
+                            <Link
+                              key={sub.href}
+                              href={sub.href}
+                              onClick={() => setDropdownOpen(false)}
+                              className="block rounded-control px-2 py-2 text-sm font-medium text-ink transition-colors hover:bg-surface hover:text-navy"
+                            >
+                              {sub.label}
+                            </Link>
+                          ))}
+                        </div>
+                      );
+                    })()}
                   </div>
                 )}
               </div>
@@ -139,25 +197,64 @@ export default function Nav() {
             {links.map((link) =>
               link.dropdown ? (
                 <div key={link.href}>
-                  <Link
-                    href={link.href}
-                    onClick={() => setMobileOpen(false)}
-                    className="block rounded-control px-2 py-3 font-body text-base font-medium text-ink transition-colors hover:bg-surface"
+                  {/* Programs accordion toggle */}
+                  <button
+                    type="button"
+                    onClick={() => setMobileProgramsOpen((v) => !v)}
+                    className="flex w-full items-center justify-between rounded-control px-2 py-3 font-body text-base font-medium text-ink transition-colors hover:bg-surface"
                   >
                     {link.label}
-                  </Link>
-                  <div className="ml-4 flex flex-col border-l border-border pl-3">
-                    {dropdownItems.map((item) => (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        onClick={() => setMobileOpen(false)}
-                        className="py-2 text-sm font-medium text-muted transition-colors hover:text-navy"
-                      >
-                        {item.label}
-                      </Link>
-                    ))}
-                  </div>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className={`transition-transform duration-200 ${mobileProgramsOpen ? "rotate-180" : ""}`}>
+                      <path d="m6 9 6 6 6-6" />
+                    </svg>
+                  </button>
+
+                  {mobileProgramsOpen && (
+                    <div className="ml-4 flex flex-col border-l border-border pl-3">
+                      {trainingAreas.map((area) => (
+                        <div key={area.href}>
+                          {area.subItems.length > 0 ? (
+                            /* TVET — nested accordion */
+                            <>
+                              <button
+                                type="button"
+                                onClick={() => setMobileTvetOpen((v) => !v)}
+                                className="flex w-full items-center justify-between py-2.5 font-body text-sm font-semibold text-ink transition-colors hover:text-navy"
+                              >
+                                {area.label}
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className={`transition-transform duration-200 ${mobileTvetOpen ? "rotate-180" : ""}`}>
+                                  <path d="m6 9 6 6 6-6" />
+                                </svg>
+                              </button>
+                              {mobileTvetOpen && (
+                                <div className="ml-3 flex flex-col border-l border-border pl-3">
+                                  {area.subItems.map((sub) => (
+                                    <Link
+                                      key={sub.href}
+                                      href={sub.href}
+                                      onClick={() => setMobileOpen(false)}
+                                      className="block py-2 text-sm font-medium text-muted transition-colors hover:text-navy"
+                                    >
+                                      {sub.label}
+                                    </Link>
+                                  ))}
+                                </div>
+                              )}
+                            </>
+                          ) : (
+                            /* HSE & Corporate — plain links */
+                            <Link
+                              href={area.href}
+                              onClick={() => setMobileOpen(false)}
+                              className="block py-2.5 font-body text-sm font-semibold text-ink transition-colors hover:text-navy"
+                            >
+                              {area.label}
+                            </Link>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               ) : (
                 <Link

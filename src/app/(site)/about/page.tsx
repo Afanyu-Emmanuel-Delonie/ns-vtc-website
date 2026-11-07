@@ -22,7 +22,10 @@ export default function AboutPage() {
         eyebrow="About NS-VTC"
         title="Who We Are"
         description="A vocational training institution in Rilima Sector, Bugesera District, committed to practical skills development and workplace safety."
-        
+        actions={[
+          { href: "/programs", label: "Explore Programs", variant: "secondaryOnDark" },
+          { href: "/#contact", label: "Get in Touch", variant: "accent" },
+        ]}
       />
       <WhoWeAre />
       <VisionMission />

@@ -4,6 +4,7 @@ import CourseSelect from "./CourseSelect";
 import Reveal from "./Reveal";
 import RevealGroup from "./RevealGroup";
 import RevealItem from "./RevealItem";
+import { CONTACT } from "../constants";
 
 const patternCells = Array.from({ length: 6 }, (_, row) =>
   Array.from({ length: 6 }, (_, col) => {
@@ -15,21 +16,21 @@ const patternCells = Array.from({ length: 6 }, (_, row) =>
 const info = [
   {
     label: "Call & WhatsApp",
-    lines: ["+250 788 986 489", "+250 799 528 247", "+250 799 524 906"],
+    lines: [...CONTACT.phones],
     icon: (
       <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92Z" />
     ),
   },
   {
     label: "Visit Us",
-    lines: ["Rilima Sector, Bugesera District", "Eastern Province, Rwanda"],
+    lines: [CONTACT.address.line1, CONTACT.address.line2],
     icon: (
       <path d="M12 21s-7-5.33-7-11a7 7 0 1 1 14 0c0 5.67-7 11-7 11ZM12 13a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
     ),
   },
   {
     label: "Write to Us",
-    lines: ["newtonvtc@gmail.com"],
+    lines: [CONTACT.email],
     icon: <path d="M4 4h16v16H4V4Zm0 0 8 8 8-8" />,
   },
 ];
@@ -158,7 +159,7 @@ export default function Contact() {
           <div className="relative hidden min-h-full flex-col justify-between p-8 lg:flex">
             <Image
               src="/assets/hero2.png"
-              alt="NS-VTC campus in Rilima Sector, Bugesera District"
+              alt={`NS-VTC campus in ${CONTACT.address.line1}`}
               fill
               sizes="30vw"
               className="object-cover"
@@ -182,10 +183,10 @@ export default function Contact() {
 
             <div className="relative">
               <p className="font-heading text-2xl font-extrabold leading-[1.15] text-white">
-                Rilima Sector, Bugesera District
+                {CONTACT.address.line1}
               </p>
               <p className="mt-2 font-body text-sm leading-[1.6] text-on-navy">
-                Eastern Province, Rwanda. Accommodation available for both
+                {CONTACT.address.line2}. Accommodation available for both
                 male and female trainees.
               </p>
             </div>

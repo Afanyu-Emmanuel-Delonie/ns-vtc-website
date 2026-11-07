@@ -133,7 +133,7 @@ export default function Hero() {
             variants={item}
             className="mt-2 flex w-full flex-col gap-3 px-6 sm:w-auto sm:flex-row sm:px-0"
           >
-            <LinkButton href="/register" variant="primary">Enroll Now</LinkButton>
+            <LinkButton href="/register" variant="accent">Enroll Now</LinkButton>
             <LinkButton href="/programs" variant="secondaryOnDark">Explore Our Courses</LinkButton>
           </motion.div>
         </motion.div>
