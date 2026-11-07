@@ -5,7 +5,7 @@ import Reveal from "../../../components/Reveal";
 import RevealGroup from "../../../components/RevealGroup";
 import RevealItem from "../../../components/RevealItem";
 import { LinkButton } from "../../../components/Button";
-import { tvetCourses, getCourse } from "../data";
+import { tvetCourses, getCourse } from "../../../constants";
 import AdmissionSections from "../../../components/AdmissionSections";
 
 type Props = { params: Promise<{ slug: string }> };

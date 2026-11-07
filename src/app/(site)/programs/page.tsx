@@ -6,7 +6,7 @@ import RevealGroup from "../../components/RevealGroup";
 import RevealItem from "../../components/RevealItem";
 import { LinkButton } from "../../components/Button";
 import AdmissionSections from "../../components/AdmissionSections";
-import { tvetCourses } from "./data";
+import { tvetCourses } from "../../constants";
 
 export const metadata: Metadata = {
   title: "Programs | NS-VTC",

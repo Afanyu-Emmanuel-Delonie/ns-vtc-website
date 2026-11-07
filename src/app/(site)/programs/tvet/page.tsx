@@ -5,7 +5,7 @@ import Reveal from "../../../components/Reveal";
 import RevealGroup from "../../../components/RevealGroup";
 import RevealItem from "../../../components/RevealItem";
 import AdmissionSections from "../../../components/AdmissionSections";
-import { tvetCourses } from "../data";
+import { tvetCourses } from "../../../constants";
 
 export const metadata: Metadata = {
   title: "TVET Training | NS-VTC",

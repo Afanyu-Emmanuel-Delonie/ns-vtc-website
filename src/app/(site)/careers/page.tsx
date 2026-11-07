@@ -6,8 +6,7 @@ import Reveal from "../../components/Reveal";
 import RevealGroup from "../../components/RevealGroup";
 import RevealItem from "../../components/RevealItem";
 import { LinkButton } from "../../components/Button";
-import { CONTACT } from "../../constants";
-import { openPositions, deptColors } from "./data";
+import { CONTACT, openPositions, deptColors } from "../../constants";
 
 const row = {
   hidden: { opacity: 0, x: -16 },
