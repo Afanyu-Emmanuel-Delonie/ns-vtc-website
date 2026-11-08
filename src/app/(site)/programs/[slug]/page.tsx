@@ -59,11 +59,6 @@ export default async function CoursePage({ params }: Props) {
           {/* Main header row */}
           <div className="mt-6 flex flex-col gap-8 pb-12 lg:flex-row lg:items-end lg:justify-between">
             <div className="flex items-start gap-5">
-              <span className="inline-flex h-14 w-14 flex-none items-center justify-center rounded-2xl bg-white/10 text-orange ring-1 ring-white/10">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  {course.icon}
-                </svg>
-              </span>
               <div>
                 <span className="font-body text-xs font-semibold uppercase tracking-widest text-orange">TVET Training</span>
                 <h1 className="mt-1 font-heading text-[clamp(32px,5vw,52px)] font-extrabold leading-[1.1] text-white">
@@ -122,57 +117,47 @@ export default async function CoursePage({ params }: Props) {
 
       {/* Course Content */}
       <section className="px-[clamp(16px,5vw,64px)] py-[clamp(48px,6vw,80px)]">
-        <div className="mx-auto max-w-(--container-site)">
-          <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
+        <div className="mx-auto max-w-(--container-site) flex flex-col gap-12">
 
-            {/* What You'll Learn */}
-            <Reveal>
-              <p className="text-xs font-bold uppercase tracking-widest text-orange">Training Areas</p>
-              <h2 className="mt-2 font-heading text-xl font-bold text-ink">What You&rsquo;ll Learn</h2>
-              <RevealGroup className="mt-6 flex flex-col gap-2">
-                {course.areas.map((area, i) => (
-                  <RevealItem key={area}>
-                    <div className="flex items-start gap-3 rounded-control bg-surface px-4 py-3">
-                      <span className="mt-0.5 flex h-5 w-5 flex-none items-center justify-center rounded-full bg-navy text-[10px] font-bold text-white">
-                        {i + 1}
-                      </span>
-                      <span className="font-body text-sm text-ink">{area}</span>
-                    </div>
-                  </RevealItem>
-                ))}
-              </RevealGroup>
-            </Reveal>
+          {/* What You'll Learn */}
+          <Reveal>
+            <h2 className="font-heading text-xl font-bold text-ink">What You&rsquo;ll Learn</h2>
+            <p className="mt-1 font-body text-sm text-muted">Core topics and practical skills covered in this program.</p>
+            <RevealGroup className="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-2">
+              {course.areas.map((area) => (
+                <RevealItem key={area}>
+                  <div className="flex items-start gap-3 rounded-control border border-border bg-white px-4 py-3">
+                    <svg className="mt-0.5 flex-none text-orange" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
+                    <span className="font-body text-sm text-ink">{area}</span>
+                  </div>
+                </RevealItem>
+              ))}
+            </RevealGroup>
+          </Reveal>
 
-            {/* Career Pathways */}
-            <Reveal delay={0.1}>
-              <p className="text-xs font-bold uppercase tracking-widest text-orange">Career Opportunities</p>
-              <h2 className="mt-2 font-heading text-xl font-bold text-ink">Where It Can Take You</h2>
-              <ul className="mt-6 flex flex-wrap gap-2">
+          {/* Career Pathways */}
+          <Reveal delay={0.1}>
+            <div className="rounded-card bg-navy-dark p-8">
+              <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+                <div>
+                  <h2 className="font-heading text-xl font-bold text-white">Where It Can Take You</h2>
+                  <p className="mt-1 font-body text-sm text-white/60">Career pathways are indicative and depend on experience and employer requirements.</p>
+                </div>
+                <LinkButton href={`/register?course=${encodeURIComponent(course.registerLabel)}`} variant="accent" className="flex-none">
+                  Apply for this Course
+                </LinkButton>
+              </div>
+              <ul className="mt-6 flex flex-wrap gap-2 border-t border-white/10 pt-6">
                 {course.careers.map((career) => (
-                  <li
-                    key={career}
-                    className="rounded-full border border-border bg-surface px-4 py-2 font-body text-sm text-ink"
-                  >
+                  <li key={career} className="flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 font-body text-sm font-medium text-white">
+                    <span className="h-1.5 w-1.5 flex-none rounded-full bg-orange" />
                     {career}
                   </li>
                 ))}
               </ul>
-              <p className="mt-5 font-body text-xs leading-relaxed text-muted">
-                Career pathways are indicative and depend on experience, qualifications and employer requirements.
-              </p>
+            </div>
+          </Reveal>
 
-              {/* Apply CTA card */}
-              <div className="mt-8 rounded-card bg-navy-dark p-6">
-                <p className="font-heading text-base font-bold text-white">Ready to get started?</p>
-                <p className="mt-1 font-body text-xs leading-relaxed text-white/60">Applications are open. Secure your place on the next intake.</p>
-                <div className="mt-4">
-                  <LinkButton href={`/register?course=${encodeURIComponent(course.registerLabel)}`} variant="accent" className="w-full">
-                    Apply for this Course
-                  </LinkButton>
-                </div>
-              </div>
-            </Reveal>
-          </div>
         </div>
       </section>
 
