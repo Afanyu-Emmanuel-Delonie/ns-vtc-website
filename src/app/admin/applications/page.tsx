@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { collection, getDocs, deleteDoc, writeBatch, orderBy, query, doc } from "firebase/firestore";
 import { db } from "../../../lib/firebase";
 import Link from "next/link";
+import { exportCsv } from "../../../lib/exportCsv";
 
 type Application = {
   id: string;
@@ -19,6 +20,20 @@ type Application = {
   createdAt: { seconds: number } | null;
 };
 
+function ConfirmDialog({ message, onConfirm, onCancel }: { message: string; onConfirm: () => void; onCancel: () => void }) {
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+      <div className="w-full max-w-sm rounded-card border border-border bg-white p-6 shadow-xl">
+        <p className="font-body text-sm text-ink">{message}</p>
+        <div className="mt-5 flex justify-end gap-3">
+          <button onClick={onCancel} className="rounded-control border border-border px-4 py-2 font-body text-sm font-medium text-ink hover:bg-surface">Cancel</button>
+          <button onClick={onConfirm} className="rounded-control bg-red-600 px-4 py-2 font-body text-sm font-semibold text-white hover:bg-red-700">Delete</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function ApplicationsPage() {
   const [applications, setApplications] = useState<Application[]>([]);
   const [loading, setLoading] = useState(true);
@@ -26,24 +41,32 @@ export default function ApplicationsPage() {
   const [courseFilter, setCourseFilter] = useState("All");
   const [deleting, setDeleting] = useState<string | null>(null);
   const [clearing, setClearing] = useState(false);
+  const [confirm, setConfirm] = useState<{ message: string; onConfirm: () => void } | null>(null);
+
+  function ask(message: string, onConfirm: () => void) {
+    setConfirm({ message, onConfirm });
+  }
 
   async function handleDelete(id: string) {
-    if (!confirm("Delete this application? This cannot be undone.")) return;
-    setDeleting(id);
-    await deleteDoc(doc(db, "applications", id));
-    setApplications((prev) => prev.filter((a) => a.id !== id));
-    setDeleting(null);
+    ask("Delete this application? This cannot be undone.", async () => {
+      setConfirm(null);
+      setDeleting(id);
+      await deleteDoc(doc(db, "applications", id));
+      setApplications((prev) => prev.filter((a) => a.id !== id));
+      setDeleting(null);
+    });
   }
 
   async function handleClearAll() {
-    if (!confirm(`Delete all ${filtered.length} visible application(s)? This cannot be undone.`)) return;
-    setClearing(true);
-    const batch = writeBatch(db);
-    filtered.forEach((a) => batch.delete(doc(db, "applications", a.id)));
-    await batch.commit();
-    const remaining = applications.filter((a) => !filtered.find((f) => f.id === a.id));
-    setApplications(remaining);
-    setClearing(false);
+    ask(`Delete all ${filtered.length} visible application(s)? This cannot be undone.`, async () => {
+      setConfirm(null);
+      setClearing(true);
+      const batch = writeBatch(db);
+      filtered.forEach((a) => batch.delete(doc(db, "applications", a.id)));
+      await batch.commit();
+      setApplications((prev) => prev.filter((a) => !filtered.find((f) => f.id === a.id)));
+      setClearing(false);
+    });
   }
 
   useEffect(() => {
@@ -67,10 +90,20 @@ export default function ApplicationsPage() {
 
   return (
     <>
+      {confirm && <ConfirmDialog message={confirm.message} onConfirm={confirm.onConfirm} onCancel={() => setConfirm(null)} />}
       <div className="flex flex-col gap-6">
-        <div>
-          <h1 className="font-heading text-2xl font-extrabold text-ink">Applications</h1>
-          <p className="mt-1 font-body text-sm text-muted">All course applications submitted through the website.</p>
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="font-heading text-2xl font-extrabold text-ink">Applications</h1>
+            <p className="mt-1 font-body text-sm text-muted">All course applications submitted through the website.</p>
+          </div>
+          <button
+            onClick={() => exportCsv("applications.csv", applications.map(({ id, createdAt, ...a }) => ({ ...a, date: createdAt ? new Date(createdAt.seconds * 1000).toLocaleDateString() : "" })))}
+            className="inline-flex items-center gap-2 rounded-control border border-border px-4 py-2 font-body text-sm font-semibold text-ink hover:bg-surface"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" /></svg>
+            Export CSV
+          </button>
         </div>
 
         <div className="flex flex-wrap gap-3">

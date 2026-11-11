@@ -1,12 +1,12 @@
-export const dynamic = "force-static";
-
 "use client";
+
+export function generateStaticParams() { return []; }
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { collection, doc, getDoc, getDocs, query, where, orderBy } from "firebase/firestore";
-import { db } from "../../../lib/firebase";
+import { db } from "../../../../lib/firebase";
 import Reveal from "../../../components/Reveal";
 import RevealGroup from "../../../components/RevealGroup";
 import RevealItem from "../../../components/RevealItem";

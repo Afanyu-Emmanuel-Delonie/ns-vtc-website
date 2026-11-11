@@ -71,9 +71,19 @@ export default function CareersPage() {
 
           <RevealGroup className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {loadingJobs ? (
-              <p className="col-span-3 font-body text-sm text-muted">Loading positions...</p>
+              <div className="col-span-3 flex justify-center py-12">
+                <p className="font-body text-sm text-muted">Loading positions...</p>
+              </div>
             ) : jobs.length === 0 ? (
-              <p className="col-span-3 font-body text-sm text-muted">No open positions at this time. Check back soon.</p>
+              <div className="col-span-3 flex flex-col items-center gap-3 rounded-card border border-dashed border-border bg-surface py-16 text-center">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-muted" aria-hidden="true">
+                  <rect x="2" y="7" width="20" height="14" rx="2" />
+                  <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+                </svg>
+                <p className="font-heading text-sm font-bold text-ink">No open positions right now</p>
+                <p className="max-w-xs font-body text-sm text-muted">We&rsquo;re not actively hiring at the moment, but we&rsquo;d still love to hear from you.</p>
+                <LinkButton href={`${CONTACT.emailHref}?subject=Open%20Application%20-%20NS-VTC`} variant="accent" className="mt-2">Send an Open Application</LinkButton>
+              </div>
             ) : jobs.map((pos) => (
               <RevealItem key={pos.id}>
                 <div className="group flex h-full flex-col rounded-card bg-surface p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-md">

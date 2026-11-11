@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   collection, getDocs, addDoc, updateDoc, deleteDoc,
   doc, serverTimestamp, orderBy, query,
 } from "firebase/firestore";
 import { db } from "../../../lib/firebase";
+import { exportCsv } from "../../../lib/exportCsv";
 
 type Job = {
   id: string;
@@ -29,6 +30,39 @@ const empty: Omit<Job, "id"> = {
 
 const departments = ["TVET", "HSE", "Corporate", "Administration"];
 const types = ["Full-time", "Part-time", "Contract"];
+
+const LINE_HEIGHT = 20; // px — matches text-sm with default line-height
+const MAX_LINES = 6;
+
+function AutoTextarea({ value, onChange, placeholder, required, className }: {
+  value: string;
+  onChange: (v: string) => void;
+  placeholder?: string;
+  required?: boolean;
+  className?: string;
+}) {
+  const ref = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    el.style.height = "auto";
+    el.style.height = Math.min(el.scrollHeight, LINE_HEIGHT * MAX_LINES + 16) + "px";
+  }, [value]);
+
+  return (
+    <textarea
+      ref={ref}
+      required={required}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      placeholder={placeholder}
+      rows={1}
+      style={{ resize: "none", overflowY: "hidden" }}
+      className={className}
+    />
+  );
+}
 
 function JobForm({ initial, onSave, onCancel, saving }: {
   initial: Omit<Job, "id">;
@@ -84,23 +118,23 @@ function JobForm({ initial, onSave, onCancel, saving }: {
       </div>
       <div>
         <label className="mb-1 block font-body text-xs font-semibold text-muted">Short Description * (shown on cards)</label>
-        <textarea required rows={2} className={taClass} value={form.description} onChange={(e) => set("description", e.target.value)} placeholder="One or two sentences summarising the role." />
+        <AutoTextarea required value={form.description} onChange={(v) => set("description", v)} placeholder="One or two sentences summarising the role." className={taClass} />
       </div>
       <div>
         <label className="mb-1 block font-body text-xs font-semibold text-muted">Full Body * (shown on detail page)</label>
-        <textarea required rows={4} className={taClass} value={form.body} onChange={(e) => set("body", e.target.value)} placeholder="Full role description..." />
+        <AutoTextarea required value={form.body} onChange={(v) => set("body", v)} placeholder="Full role description..." className={taClass} />
       </div>
       <div>
         <label className="mb-1 block font-body text-xs font-semibold text-muted">Responsibilities (one per line)</label>
-        <textarea rows={4} className={taClass} value={respText} onChange={(e) => setRespText(e.target.value)} placeholder={"Plan and deliver lessons\nAssess student progress\n..."} />
+        <AutoTextarea value={respText} onChange={setRespText} placeholder={"Plan and deliver lessons\nAssess student progress\n..."} className={taClass} />
       </div>
       <div>
         <label className="mb-1 block font-body text-xs font-semibold text-muted">Requirements (one per line)</label>
-        <textarea rows={3} className={taClass} value={reqText} onChange={(e) => setReqText(e.target.value)} placeholder={"3+ years experience\nTrade certificate\n..."} />
+        <AutoTextarea value={reqText} onChange={setReqText} placeholder={"3+ years experience\nTrade certificate\n..."} className={taClass} />
       </div>
       <div>
         <label className="mb-1 block font-body text-xs font-semibold text-muted">Qualifications (one per line)</label>
-        <textarea rows={3} className={taClass} value={qualText} onChange={(e) => setQualText(e.target.value)} placeholder={"Certificate in relevant trade\nFluency in Kinyarwanda\n..."} />
+        <AutoTextarea value={qualText} onChange={setQualText} placeholder={"Certificate in relevant trade\nFluency in Kinyarwanda\n..."} className={taClass} />
       </div>
       <div className="flex gap-3 pt-2">
         <button type="submit" disabled={saving} className="rounded-control bg-navy px-4 py-2 font-body text-sm font-semibold text-white transition-opacity hover:opacity-80 disabled:opacity-50">
@@ -124,8 +158,9 @@ const deptColors: Record<string, string> = {
 export default function JobsPage() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
-  const [mode, setMode] = useState<"list" | "add" | "edit">("list");
+  const [mode, setMode] = useState<"list" | "add" | "edit" | "view">("list");
   const [editing, setEditing] = useState<Job | null>(null);
+  const [viewing, setViewing] = useState<Job | null>(null);
   const [saving, setSaving] = useState(false);
   const [showArchived, setShowArchived] = useState(false);
 
@@ -161,6 +196,72 @@ export default function JobsPage() {
     load();
   }
 
+  if (mode === "view" && viewing) {
+    const j = viewing;
+    return (
+      <div className="flex flex-col gap-6">
+        <div className="flex items-center gap-4">
+          <button onClick={() => { setMode("list"); setViewing(null); }} className="inline-flex items-center gap-1.5 font-body text-sm text-muted hover:text-ink">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
+            Back
+          </button>
+        </div>
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <div className="flex flex-wrap items-center gap-2">
+              <span className={`rounded-full px-2.5 py-0.5 font-body text-[11px] font-bold uppercase tracking-wide ${deptColors[j.department] ?? "bg-surface text-muted"}`}>{j.department}</span>
+              <span className="rounded-full border border-border px-2.5 py-0.5 font-body text-[11px] font-medium text-muted">{j.type}</span>
+              <span className="rounded-full border border-border px-2.5 py-0.5 font-body text-[11px] font-medium text-muted">📍 {j.location}</span>
+              {j.archived && <span className="rounded-full bg-surface px-2.5 py-0.5 font-body text-[11px] font-semibold text-muted">Archived</span>}
+            </div>
+            <h1 className="mt-3 font-heading text-2xl font-extrabold text-ink">{j.title}</h1>
+            <p className="mt-2 font-body text-sm leading-relaxed text-muted">{j.description}</p>
+          </div>
+          <button onClick={() => { setEditing(j); setMode("edit"); }} className="flex-none rounded-control border border-border px-4 py-2 font-body text-sm font-semibold text-ink hover:bg-surface">Edit</button>
+        </div>
+
+        <div className="grid gap-6 lg:grid-cols-2">
+          <div className="rounded-card border border-border bg-white p-6">
+            <h2 className="font-heading text-base font-bold text-ink">The Position</h2>
+            <p className="mt-3 font-body text-sm leading-relaxed text-muted">{j.body}</p>
+          </div>
+          <div className="flex flex-col gap-6">
+            {j.responsibilities?.length > 0 && (
+              <div className="rounded-card border border-border bg-white p-6">
+                <h2 className="font-heading text-base font-bold text-ink">Responsibilities</h2>
+                <ul className="mt-3 flex flex-col gap-2">
+                  {j.responsibilities.map((r) => (
+                    <li key={r} className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 flex-none rounded-full bg-orange" /><span className="font-body text-sm text-muted">{r}</span></li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {j.requirements?.length > 0 && (
+              <div className="rounded-card border border-border bg-white p-6">
+                <h2 className="font-heading text-base font-bold text-ink">Requirements</h2>
+                <ul className="mt-3 flex flex-col gap-2">
+                  {j.requirements.map((r) => (
+                    <li key={r} className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 flex-none rounded-full bg-orange" /><span className="font-body text-sm text-muted">{r}</span></li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {j.qualifications?.length > 0 && (
+              <div className="rounded-card border border-border bg-white p-6">
+                <h2 className="font-heading text-base font-bold text-ink">Qualifications</h2>
+                <ul className="mt-3 flex flex-col gap-2">
+                  {j.qualifications.map((q) => (
+                    <li key={q} className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 flex-none rounded-full bg-orange" /><span className="font-body text-sm text-muted">{q}</span></li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const visible = jobs.filter((j) => showArchived ? j.archived : !j.archived);
 
   if (mode === "add" || mode === "edit") {
@@ -189,9 +290,18 @@ export default function JobsPage() {
           <h1 className="font-heading text-2xl font-extrabold text-ink">Jobs</h1>
           <p className="mt-1 font-body text-sm text-muted">Manage open positions shown on the careers page.</p>
         </div>
-        <button onClick={() => setMode("add")} className="rounded-control bg-navy px-4 py-2 font-body text-sm font-semibold text-white transition-opacity hover:opacity-80">
-          + Add Job
-        </button>
+        <div className="flex items-center gap-2">
+          <button onClick={() => setMode("add")} className="rounded-control bg-navy px-4 py-2 font-body text-sm font-semibold text-white transition-opacity hover:opacity-80">
+            + Add Job
+          </button>
+          <button
+            onClick={() => exportCsv("jobs.csv", jobs.map(({ id, responsibilities, requirements, qualifications, ...j }) => ({ ...j, responsibilities: responsibilities.join("; "), requirements: requirements.join("; "), qualifications: qualifications.join("; ") })))}
+            className="inline-flex items-center gap-2 rounded-control border border-border px-4 py-2 font-body text-sm font-semibold text-ink hover:bg-surface"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" /></svg>
+            Export CSV
+          </button>
+        </div>
       </div>
 
       <div className="flex gap-2">
@@ -230,7 +340,8 @@ export default function JobsPage() {
                   <td className="px-5 py-3 text-muted">{j.location}</td>
                   <td className="px-5 py-3">
                     <div className="flex gap-3">
-                      <button onClick={() => { setEditing(j); setMode("edit"); }} className="font-body text-xs font-semibold text-navy hover:underline">Edit</button>
+                      <button onClick={() => { setViewing(j); setMode("view"); }} className="font-body text-xs font-semibold text-navy hover:underline">View</button>
+                      <button onClick={() => { setEditing(j); setMode("edit"); }} className="font-body text-xs font-semibold text-muted hover:underline">Edit</button>
                       <button onClick={() => toggleArchive(j)} className="font-body text-xs font-semibold text-muted hover:underline">
                         {j.archived ? "Restore" : "Archive"}
                       </button>

@@ -1,4 +1,9 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "../../lib/firebase";
 import { Button } from "./Button";
 import CourseSelect from "./CourseSelect";
 import Reveal from "./Reveal";
@@ -52,6 +57,30 @@ const inputClass =
   "min-h-11 w-full rounded-control border border-border bg-white px-3 font-body text-sm text-ink placeholder:text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-2";
 
 export default function Contact() {
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
+    const form = e.target as HTMLFormElement;
+    const data = Object.fromEntries(new FormData(form));
+    try {
+      await addDoc(collection(db, "contacts"), { ...data, createdAt: serverTimestamp() });
+      setSubmitted(true);
+      form.reset();
+      const name = (data.fullName as string) || "";
+      const msg = encodeURIComponent(`Hi, my name is ${name}, I just sent you an inquiry`);
+      window.open(`https://wa.me/250792523110?text=${msg}`, "_blank");
+    } catch {
+      setError("Failed to send. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <section
       id="contact"
@@ -74,87 +103,61 @@ export default function Contact() {
           delay={0.1}
           className="mt-10 grid overflow-hidden rounded-card border border-border bg-white lg:grid-cols-[1.4fr_1fr]"
         >
-          <form className="p-6 sm:p-8">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div>
-                <label
-                  htmlFor="fullName"
-                  className="mb-1.5 block font-body text-sm font-medium text-ink"
-                >
-                  Full Name
-                </label>
-                <input
-                  id="fullName"
-                  name="fullName"
-                  type="text"
-                  placeholder="Your full name"
+          {submitted ? (
+            <div className="flex flex-col items-center justify-center gap-4 p-12 text-center">
+              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-navy">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" />
+                </svg>
+              </span>
+              <h3 className="font-heading text-xl font-bold text-ink">Message Sent!</h3>
+              <p className="max-w-xs font-body text-sm leading-relaxed text-muted">
+                Thanks for reaching out. We&apos;ll get back to you within 1–2 business days.
+              </p>
+              <button onClick={() => setSubmitted(false)} className="text-sm font-semibold text-navy underline-offset-4 hover:underline">
+                Send another message
+              </button>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="p-6 sm:p-8">
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label htmlFor="fullName" className="mb-1.5 block font-body text-sm font-medium text-ink">Full Name</label>
+                  <input id="fullName" name="fullName" type="text" placeholder="Your full name" required className={inputClass} />
+                </div>
+                <div>
+                  <label htmlFor="email" className="mb-1.5 block font-body text-sm font-medium text-ink">Email Address</label>
+                  <input id="email" name="email" type="email" placeholder="you@example.com" required className={inputClass} />
+                </div>
+              </div>
+
+              <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label htmlFor="phone" className="mb-1.5 block font-body text-sm font-medium text-ink">Phone Number</label>
+                  <input id="phone" name="phone" type="tel" placeholder="+250 7xx xxx xxx" required className={inputClass} />
+                </div>
+                <CourseSelect label="Course of Interest" name="course" options={courseOptions} />
+              </div>
+
+              <div className="mt-4">
+                <label htmlFor="message" className="mb-1.5 block font-body text-sm font-medium text-ink">Your Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={4}
+                  placeholder="Tell us a bit more"
                   required
-                  className={inputClass}
+                  className="w-full rounded-control border border-border bg-white px-3 py-2.5 font-body text-sm text-ink placeholder:text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-2"
                 />
               </div>
-              <div>
-                <label
-                  htmlFor="email"
-                  className="mb-1.5 block font-body text-sm font-medium text-ink"
-                >
-                  Email Address
-                </label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="you@example.com"
-                  required
-                  className={inputClass}
-                />
-              </div>
-            </div>
 
-            <div className="mt-4 grid gap-4 sm:grid-cols-2">
-              <div>
-                <label
-                  htmlFor="phone"
-                  className="mb-1.5 block font-body text-sm font-medium text-ink"
-                >
-                  Phone Number
-                </label>
-                <input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  placeholder="+250 7xx xxx xxx"
-                  required
-                  className={inputClass}
-                />
-              </div>
-              <CourseSelect
-                label="Course of Interest"
-                name="course"
-                options={courseOptions}
-              />
-            </div>
+              {error && <p className="mt-3 rounded-card bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p>}
 
-            <div className="mt-4">
-              <label
-                htmlFor="message"
-                className="mb-1.5 block font-body text-sm font-medium text-ink"
-              >
-                Your Message
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                rows={4}
-                placeholder="Tell us a bit more"
-                required
-                className="w-full rounded-control border border-border bg-white px-3 py-2.5 font-body text-sm text-ink placeholder:text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-2"
-              />
-            </div>
-
-            <Button type="submit" variant="accent" className="mt-6">
-              Send Message
-            </Button>
-          </form>
+              <Button type="submit" variant="accent" className="mt-6" disabled={loading}>
+                {loading ? "Sending..." : "Send Message"}
+              </Button>
+            </form>
+          )}
 
           <div className="relative hidden min-h-full flex-col justify-between p-8 lg:flex">
             <Image
@@ -169,11 +172,7 @@ export default function Contact() {
 
             <div className="pointer-events-none absolute -right-3 -top-3 z-10 grid grid-cols-6 gap-1">
               {patternCells.map((opacity, i) => (
-                <span
-                  key={i}
-                  className="h-2.5 w-2.5 rounded-xs bg-white"
-                  style={{ opacity }}
-                />
+                <span key={i} className="h-2.5 w-2.5 rounded-xs bg-white" style={{ opacity }} />
               ))}
             </div>
 
@@ -186,8 +185,7 @@ export default function Contact() {
                 {CONTACT.address.line1}
               </p>
               <p className="mt-2 font-body text-sm leading-[1.6] text-on-navy">
-                {CONTACT.address.line2}. Accommodation available for both
-                male and female trainees.
+                {CONTACT.address.line2}. Accommodation available for both male and female trainees.
               </p>
             </div>
           </div>
@@ -197,30 +195,13 @@ export default function Contact() {
           {info.map((item) => (
             <RevealItem key={item.label} className="flex flex-col items-center text-center">
               <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-surface text-navy">
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   {item.icon}
                 </svg>
               </span>
-              <p className="mt-4 font-heading text-base font-bold text-ink">
-                {item.label}
-              </p>
+              <p className="mt-4 font-heading text-base font-bold text-ink">{item.label}</p>
               {item.lines.map((line) => (
-                <p
-                  key={line}
-                  className="mt-1 font-body text-sm leading-[1.6] text-body"
-                >
-                  {line}
-                </p>
+                <p key={line} className="mt-1 font-body text-sm leading-[1.6] text-body">{line}</p>
               ))}
             </RevealItem>
           ))}

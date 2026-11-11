@@ -44,6 +44,10 @@ function RegisterForm() {
         createdAt: serverTimestamp(),
       });
       setSubmitted(true);
+      const name = (data.firstName as string) || "";
+      const course = (data.course as string) || "a course";
+      const msg = encodeURIComponent(`Hi, my name is ${name}, I just sent you an application for ${course}`);
+      window.open(`https://wa.me/250792523110?text=${msg}`, "_blank");
     } catch {
       setError("Failed to submit. Please try again.");
     }

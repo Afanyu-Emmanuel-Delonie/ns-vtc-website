@@ -16,20 +16,17 @@ type Application = {
 
 export default function AdminPage() {
   const [appCount, setAppCount] = useState<number | null>(null);
-  const [courseCount, setCourseCount] = useState<number | null>(null);
   const [jobCount, setJobCount] = useState<number | null>(null);
   const [recent, setRecent] = useState<Application[]>([]);
 
   useEffect(() => {
     async function load() {
-      const [appSnap, courseSnap, jobSnap, recentSnap] = await Promise.all([
+      const [appSnap, jobSnap, recentSnap] = await Promise.all([
         getDocs(collection(db, "applications")),
-        getDocs(collection(db, "courses")),
         getDocs(query(collection(db, "jobs"), where("archived", "==", false))),
         getDocs(query(collection(db, "applications"), orderBy("createdAt", "desc"), limit(5))),
       ]);
       setAppCount(appSnap.size);
-      setCourseCount(courseSnap.size);
       setJobCount(jobSnap.size);
       setRecent(recentSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Application)));
     }
@@ -38,7 +35,6 @@ export default function AdminPage() {
 
   const stats = [
     { label: "Total Applications", value: appCount, href: "/admin/applications" },
-    { label: "Active Courses", value: courseCount, href: "/admin/courses" },
     { label: "Open Positions", value: jobCount, href: "/admin/jobs" },
   ];
 
@@ -49,7 +45,7 @@ export default function AdminPage() {
         <p className="mt-1 font-body text-sm text-muted">Welcome back. Here&rsquo;s a summary of NS-VTC activity.</p>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {stats.map((s) => (
           <Link key={s.label} href={s.href} className="rounded-card border border-border bg-white p-6 transition-shadow hover:shadow-md">
             <p className="font-body text-xs font-semibold uppercase tracking-widest text-muted">{s.label}</p>
