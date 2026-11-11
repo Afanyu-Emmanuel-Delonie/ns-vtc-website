@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+Disallow: /register
+
+Sitemap: https://ns-vtc.rw/sitemap.xml
