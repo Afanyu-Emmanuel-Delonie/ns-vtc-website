@@ -1,5 +1,3 @@
-export function generateStaticParams() { return []; }
-
 import JobDetailClient from "./JobDetailClient";
 
 export default function JobDetailPage() {
