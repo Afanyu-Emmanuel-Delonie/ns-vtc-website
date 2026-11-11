@@ -19,6 +19,15 @@ const nav = [
     ),
   },
   {
+    href: "/admin/contacts",
+    label: "Contacts",
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M4 4h16v16H4V4Zm0 0 8 8 8-8" />
+      </svg>
+    ),
+  },
+  {
     href: "/admin/applications",
     label: "Applications",
     icon: (
