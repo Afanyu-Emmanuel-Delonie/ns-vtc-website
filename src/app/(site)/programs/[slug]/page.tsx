@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Reveal from "../../../components/Reveal";
@@ -175,16 +176,14 @@ export default async function CoursePage({ params }: Props) {
               <Link
                 key={c.slug}
                 href={`/programs/${c.slug}`}
-                className="group flex flex-col gap-3 rounded-card bg-white p-5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:bg-navy hover:shadow-md"
+                className="group flex flex-col overflow-hidden rounded-card bg-white shadow-sm transition-all duration-200 hover:-translate-y-1 hover:bg-navy hover:shadow-md"
               >
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-surface text-navy transition-colors group-hover:bg-white/10 group-hover:text-white">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    {c.icon}
-                  </svg>
-                </span>
-                <div>
+                <div className="relative h-36 w-full flex-none">
+                  <Image src={c.image} alt={c.title} fill className="object-cover" />
+                </div>
+                <div className="flex flex-col gap-1 p-4">
                   <p className="font-heading text-sm font-bold text-ink transition-colors group-hover:text-white">{c.title}</p>
-                  <p className="mt-0.5 font-body text-xs leading-relaxed text-muted transition-colors group-hover:text-white/70">{c.tagline}</p>
+                  <p className="font-body text-xs leading-relaxed text-muted transition-colors group-hover:text-white/70">{c.tagline}</p>
                 </div>
               </Link>
             ))}

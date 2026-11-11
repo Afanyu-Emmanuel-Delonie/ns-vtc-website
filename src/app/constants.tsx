@@ -1,5 +1,3 @@
-import type { ReactNode } from "react";
-
 // ---------------------------------------------------------------------------
 // Site
 // ---------------------------------------------------------------------------
@@ -39,7 +37,7 @@ export type Course = {
   duration: string | null;
   registerLabel: string;
   tagline: string;
-  icon: ReactNode;
+  image: string;
   areas: string[];
   careers: string[];
 };
@@ -50,8 +48,8 @@ export const tvetCourses: Course[] = [
     title: "Scaffolding",
     duration: null,
     registerLabel: "Scaffolding",
-    tagline: "Practical construction access and scaffolding skills.",
-    icon: <path d="M4 21V9m16 12V9M4 9h16M4 9l4-5h8l4 5M8 21v-6h8v6" />,
+    tagline: "Learn to safely erect, dismantle and inspect scaffolding structures used on construction sites, with a strong focus on working at heights and fall prevention.",
+    image: "/assets/courses/scaffolding.jpg",
     areas: [
       "Introduction to scaffolding systems and components",
       "Identification of scaffolding tools and equipment",
@@ -68,8 +66,8 @@ export const tvetCourses: Course[] = [
     title: "Steel Fixing",
     duration: null,
     registerLabel: "Steel Fixing",
-    tagline: "Reinforcement steel preparation and installation.",
-    icon: <path d="M4 20 20 4M4 4l16 16M9 4v5M4 9h5M15 20v-5M20 15h-5" />,
+    tagline: "Master the cutting, bending, placing and tying of reinforcement steel to prepare structural frameworks for concrete construction projects.",
+    image: "/assets/courses/steel-fixing.jpg",
     areas: [
       "Identification of reinforcement steel",
       "Construction drawings and reinforcement specifications",
@@ -86,8 +84,8 @@ export const tvetCourses: Course[] = [
     title: "Tailoring",
     duration: "6 Months",
     registerLabel: "Tailoring (6 Months)",
-    tagline: "Garment making, sewing and clothing design skills.",
-    icon: <path d="M6 4a2 2 0 1 1 4 0 2 2 0 0 1-4 0ZM6 20a2 2 0 1 1 4 0 2 2 0 0 1-4 0ZM7.5 5.5 18 18M7.5 18.5 18 6" />,
+    tagline: "Develop garment-making skills from taking measurements and pattern cutting through to operating sewing machines and producing finished clothing.",
+    image: "/assets/courses/tailoring.jpg",
     areas: [
       "Introduction to tailoring and fashion design",
       "Identification and use of sewing tools",
@@ -106,8 +104,8 @@ export const tvetCourses: Course[] = [
     title: "Welding",
     duration: "6 Months",
     registerLabel: "Welding (6 Months)",
-    tagline: "Metal fabrication and welding techniques.",
-    icon: <path d="m3 21 7-7M10 14 20.5 3.5a1.5 1.5 0 0 1 2 2L12 16M14 7l3 3M6 16l2 2M3 21l2.5-1.5L3 17.5 2 21Z" />,
+    tagline: "Gain hands-on experience in metal fabrication, welding joints, cutting and workshop safety, building the skills needed for a career in metalwork.",
+    image: "/assets/courses/welding.jpg",
     areas: [
       "Introduction to welding and metal fabrication",
       "Identification of welding tools and equipment",
@@ -126,8 +124,8 @@ export const tvetCourses: Course[] = [
     title: "Carpentry",
     duration: null,
     registerLabel: "Carpentry",
-    tagline: "Woodworking, furniture making and construction skills.",
-    icon: <path d="m14.5 2.5 7 7L9 22H2v-7Z M12.5 4.5l7 7" />,
+    tagline: "Learn woodworking fundamentals including measuring, cutting, joining and finishing, covering furniture construction, door fitting and workshop safety.",
+    image: "/assets/courses/carpentry.jpg",
     areas: [
       "Introduction to carpentry and woodworking",
       "Identification of wood types and materials",
@@ -146,8 +144,8 @@ export const tvetCourses: Course[] = [
     title: "Painting",
     duration: null,
     registerLabel: "Painting",
-    tagline: "Surface preparation and professional painting techniques.",
-    icon: <path d="M19 11h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2v3a2 2 0 1 1-4 0v-3H7a4 4 0 0 1-4-4V4h12v7Z" />,
+    tagline: "Build professional painting skills covering surface preparation, paint mixing, interior and exterior application, and decorative finishing techniques.",
+    image: "/assets/courses/painting.jpg",
     areas: [
       "Introduction to painting and decoration",
       "Identification of paints and painting materials",
@@ -166,8 +164,8 @@ export const tvetCourses: Course[] = [
     title: "Masonry",
     duration: "3 Months",
     registerLabel: "Masonry (3 Months)",
-    tagline: "Bricklaying, concrete work and building construction.",
-    icon: <path d="M3 21h18M4 21V11h7v10M11 21V11h9v10M7 11V5h9v6" />,
+    tagline: "Learn bricklaying, block laying, mortar mixing, plastering and site preparation, practical skills for a career in building and construction.",
+    image: "/assets/courses/masonry.jpg",
     areas: [
       "Introduction to masonry and construction",
       "Identification of construction tools and materials",

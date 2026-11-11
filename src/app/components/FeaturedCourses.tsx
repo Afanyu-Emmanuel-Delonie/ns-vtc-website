@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "motion/react";
 import Link from "next/link";
 
@@ -15,65 +16,57 @@ const courses = [
     href: "/register?course=Scaffolding",
     title: "Scaffolding",
     duration: null,
-    description: "Practical construction access and scaffolding skills.",
-    icon: (
-      <path d="M4 21V9m16 12V9M4 9h16M4 9l4-5h8l4 5M8 21v-6h8v6" />
-    ),
+    description: "Learn to safely erect, dismantle and inspect scaffolding structures used on construction sites, with a strong focus on working at heights and fall prevention.",
+    image: "/assets/courses/scaffolding.jpg",
   },
   {
     href: "/register?course=Steel+Fixing",
     title: "Steel Fixing",
     duration: null,
-    description: "Reinforcement steel preparation and installation.",
-    icon: <path d="M4 20 20 4M4 4l16 16M9 4v5M4 9h5M15 20v-5M20 15h-5" />,
+    description: "Master the cutting, bending, placing and tying of reinforcement steel to prepare structural frameworks for concrete construction projects.",
+    image: "/assets/courses/steel-fixing.jpg",
   },
   {
     href: "/register?course=Tailoring+(6+Months)",
     title: "Tailoring",
     duration: "6 Months",
-    description: "Garment making, sewing and clothing design skills.",
-    icon: (
-      <path d="M6 4a2 2 0 1 1 4 0 2 2 0 0 1-4 0ZM6 20a2 2 0 1 1 4 0 2 2 0 0 1-4 0ZM7.5 5.5 18 18M7.5 18.5 18 6" />
-    ),
+    description: "Develop garment-making skills from taking measurements and pattern cutting through to operating sewing machines and producing finished clothing.",
+    image: "/assets/courses/tailoring.jpg",
   },
   {
     href: "/register?course=Welding+(6+Months)",
     title: "Welding",
     duration: "6 Months",
-    description: "Metal fabrication and welding techniques.",
-    icon: <path d="m3 21 7-7M10 14 20.5 3.5a1.5 1.5 0 0 1 2 2L12 16M14 7l3 3M6 16l2 2M3 21l2.5-1.5L3 17.5 2 21Z" />,
+    description: "Gain hands-on experience in metal fabrication, welding joints, cutting and workshop safety, building the skills needed for a career in metalwork.",
+    image: "/assets/courses/welding.jpg",
   },
   {
     href: "/register?course=Carpentry",
     title: "Carpentry",
     duration: null,
-    description: "Woodworking, furniture making and construction skills.",
-    icon: <path d="m14.5 2.5 7 7L9 22H2v-7Z M12.5 4.5l7 7" />,
+    description: "Learn woodworking fundamentals including measuring, cutting, joining and finishing, covering furniture construction, door fitting and workshop safety.",
+    image: "/assets/courses/carpentry.jpg",
   },
   {
     href: "/register?course=Painting",
     title: "Painting",
     duration: null,
-    description: "Surface preparation and professional painting techniques.",
-    icon: (
-      <path d="M19 11h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2v3a2 2 0 1 1-4 0v-3H7a4 4 0 0 1-4-4V4h12v7Z" />
-    ),
+    description: "Build professional painting skills covering surface preparation, paint mixing, interior and exterior application, and decorative finishing techniques.",
+    image: "/assets/courses/painting.jpg",
   },
   {
     href: "/register?course=HSE+Training+(3+Months)",
     title: "HSE",
     duration: "3 Months",
-    description: "Workplace health, safety and environmental protection.",
-    icon: <path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3Zm0 6v6m0 4h.01" />,
+    description: "Understand workplace health, safety and environmental responsibilities, covering hazard identification, PPE, fire safety and accident prevention.",
+    image: "/assets/courses/hse.jpg",
   },
   {
     href: "/register?course=Masonry+(3+Months)",
     title: "Masonry",
     duration: "3 Months",
-    description: "Bricklaying, concrete work and building construction.",
-    icon: (
-      <path d="M3 21h18M4 21V11h7v10M11 21V11h9v10M7 11V5h9v6" />
-    ),
+    description: "Learn bricklaying, block laying, mortar mixing, plastering and site preparation, practical skills for a career in building and construction.",
+    image: "/assets/courses/masonry.jpg",
   },
 ];
 
@@ -112,56 +105,42 @@ export default function FeaturedCourses() {
             <motion.div key={c.href} variants={card} transition={{ duration: 0.4, ease: "easeOut" }}>
               <Link
                 href={c.href}
-                className="group relative flex h-full flex-col gap-3 overflow-hidden rounded-card bg-surface p-5 transition-all duration-200 hover:-translate-y-1 hover:bg-navy hover:shadow-md"
+                className="group relative flex h-full flex-col overflow-hidden rounded-card transition-all duration-200 hover:-translate-y-1 hover:shadow-md"
               >
-                <div className="pointer-events-none absolute -right-2 -top-2 grid grid-cols-5 gap-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                <div className="pointer-events-none absolute -right-2 -top-2 z-10 grid grid-cols-5 gap-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                   {patternCells.map((opacity, i) => (
-                    <span
-                      key={i}
-                      className="h-2.5 w-2.5 rounded-xs bg-white"
-                      style={{ opacity }}
-                    />
+                    <span key={i} className="h-2.5 w-2.5 rounded-xs bg-white" style={{ opacity }} />
                   ))}
                 </div>
 
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white text-navy shadow-sm transition-colors group-hover:bg-white/10 group-hover:text-white">
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                  >
-                    {c.icon}
-                  </svg>
-                </span>
-
-                <div className="flex items-center gap-2">
-                  <h3 className="font-heading text-base font-bold text-ink transition-colors group-hover:text-white">
-                    {c.title}
-                  </h3>
-                  {c.duration ? (
-                    <span className="rounded-full bg-navy/10 px-2 py-0.5 font-body text-xs font-semibold text-navy transition-colors group-hover:bg-white/10 group-hover:text-white">
-                      {c.duration}
-                    </span>
-                  ) : (
-                    <span className="rounded-full border border-dashed border-border px-2 py-0.5 font-body text-xs font-semibold text-muted group-hover:border-white/30 group-hover:text-white/60">
-                      Duration TBC
-                    </span>
-                  )}
+                <div className="relative h-44 w-full flex-none">
+                  <Image src={c.image} alt={c.title} fill className="object-cover" />
                 </div>
 
-                <p className="font-body text-xs leading-relaxed text-muted transition-colors group-hover:text-white/70">
-                  {c.description}
-                </p>
+                <div className="flex flex-1 flex-col gap-3 bg-surface p-5 transition-colors duration-200 group-hover:bg-ink/5">
+                  <div className="flex items-center gap-2">
+                    <h3 className="font-heading text-base font-bold text-ink transition-colors group-hover:text-ink">
+                      {c.title}
+                    </h3>
+                    {c.duration ? (
+                      <span className="rounded-full bg-navy/10 px-2 py-0.5 font-body text-xs font-semibold text-navy transition-colors">
+                        {c.duration}
+                      </span>
+                    ) : (
+                      <span className="rounded-full border border-dashed border-border px-2 py-0.5 font-body text-xs font-semibold text-muted">
+                        Duration TBC
+                      </span>
+                    )}
+                  </div>
 
-                <span className="mt-auto font-body text-xs font-semibold text-navy transition-colors group-hover:text-white group-hover:underline">
-                  Apply for this Course &rarr;
-                </span>
+                  <p className="font-body text-xs leading-relaxed text-muted">
+                    {c.description}
+                  </p>
+
+                  <span className="mt-auto font-body text-xs font-semibold text-navy transition-colors group-hover:underline">
+                    Apply for this Course &rarr;
+                  </span>
+                </div>
               </Link>
             </motion.div>
           ))}
