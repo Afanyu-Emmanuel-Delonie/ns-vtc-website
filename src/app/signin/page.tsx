@@ -24,7 +24,7 @@ export default function SignInPage() {
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      router.push("/");
+      router.push("/admin");
     } catch (err) {
       setError(authErrorMessage(err));
     } finally {

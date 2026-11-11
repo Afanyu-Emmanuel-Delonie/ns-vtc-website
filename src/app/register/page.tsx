@@ -2,6 +2,8 @@
 
 import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "../../lib/firebase";
 import CourseSelect from "../components/CourseSelect";
 import { Button } from "../components/Button";
 
@@ -28,11 +30,23 @@ function RegisterForm() {
   const preselected = searchParams.get("course") ?? "Select a course";
   const defaultCourse = courses.includes(preselected) ? preselected : "Select a course";
 
+  const [error, setError] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setSubmitted(true);
+    setError(null);
+    const form = e.target as HTMLFormElement;
+    const data = Object.fromEntries(new FormData(form));
+    try {
+      await addDoc(collection(db, "applications"), {
+        ...data,
+        createdAt: serverTimestamp(),
+      });
+      setSubmitted(true);
+    } catch {
+      setError("Failed to submit. Please try again.");
+    }
   }
 
   return (
@@ -133,6 +147,10 @@ function RegisterForm() {
               <p className="rounded-card bg-surface px-4 py-3 text-xs leading-relaxed text-muted">
                 By submitting this form you agree to be contacted by NS-VTC regarding your application. Your information will not be shared with third parties.
               </p>
+
+              {error && (
+                <p className="rounded-card bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p>
+              )}
 
               <Button type="submit" variant="accent" className="self-start">
                 Submit Application
