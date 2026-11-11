@@ -1,12 +1,26 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "motion/react";
+import { collection, getDocs, query, where, orderBy } from "firebase/firestore";
+import { db } from "../../../lib/firebase";
 import PageHero from "../../components/PageHero";
 import Reveal from "../../components/Reveal";
 import RevealGroup from "../../components/RevealGroup";
 import RevealItem from "../../components/RevealItem";
 import { LinkButton } from "../../components/Button";
-import { CONTACT, openPositions, deptColors } from "../../constants";
+import { CONTACT, deptColors } from "../../constants";
+
+type Job = {
+  id: string;
+  title: string;
+  department: string;
+  type: string;
+  location: string;
+  description: string;
+  requirements: string[];
+  archived: boolean;
+};
 
 const row = {
   hidden: { opacity: 0, x: -16 },
@@ -22,12 +36,23 @@ const partnerships = [
 ];
 
 export default function CareersPage() {
+  const [jobs, setJobs] = useState<Job[]>([]);
+  const [loadingJobs, setLoadingJobs] = useState(true);
+
+  useEffect(() => {
+    async function load() {
+      const snap = await getDocs(query(collection(db, "jobs"), where("archived", "==", false), orderBy("title")));
+      setJobs(snap.docs.map((d) => ({ id: d.id, ...d.data() } as Job)));
+      setLoadingJobs(false);
+    }
+    load();
+  }, []);
   return (
     <main>
       <PageHero
-        eyebrow="Careers"
+        eyebrow="Careers at NS-VTC"
         title="Shape Your Career"
-        description="Explore where our training can take you and how you can work with us."
+        description="Join a team dedicated to transforming lives through practical skills training. Explore open positions at NS-VTC or find out how your organisation can partner with us on workforce development."
         actions={[
           { href: "#positions", label: "View Open Positions", variant: "accent" },
           { href: "#partnerships", label: "Partner With Us", variant: "secondaryOnDark" },
@@ -45,8 +70,12 @@ export default function CareersPage() {
           </Reveal>
 
           <RevealGroup className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {openPositions.map((pos) => (
-              <RevealItem key={pos.title}>
+            {loadingJobs ? (
+              <p className="col-span-3 font-body text-sm text-muted">Loading positions...</p>
+            ) : jobs.length === 0 ? (
+              <p className="col-span-3 font-body text-sm text-muted">No open positions at this time. Check back soon.</p>
+            ) : jobs.map((pos) => (
+              <RevealItem key={pos.id}>
                 <div className="group flex h-full flex-col rounded-card bg-surface p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-md">
                   <div className="flex items-start justify-between gap-3">
                     <span className={`rounded-full px-2.5 py-0.5 font-body text-[11px] font-bold uppercase tracking-wide ${deptColors[pos.department] ?? "bg-surface text-muted"}`}>
@@ -56,24 +85,19 @@ export default function CareersPage() {
                       {pos.type}
                     </span>
                   </div>
-
                   <h3 className="mt-4 font-heading text-base font-bold text-ink">{pos.title}</h3>
                   <p className="mt-1 font-body text-xs text-muted">📍 {pos.location}</p>
                   <p className="mt-3 flex-1 font-body text-sm leading-relaxed text-muted">{pos.description}</p>
-
                   <ul className="mt-4 flex flex-col gap-1.5">
-                    {pos.requirements.map((req) => (
+                    {(pos.requirements ?? []).map((req) => (
                       <li key={req} className="flex items-start gap-2">
                         <span className="mt-1 h-1.5 w-1.5 flex-none rounded-full bg-orange" />
                         <span className="font-body text-xs text-muted">{req}</span>
                       </li>
                     ))}
                   </ul>
-
                   <div className="mt-6">
-                    <LinkButton href={`/careers/${pos.slug}`} variant="accent" className="w-full">
-                      View Details
-                    </LinkButton>
+                    <LinkButton href={`/careers/${pos.id}`} variant="accent" className="w-full">View Details</LinkButton>
                   </div>
                 </div>
               </RevealItem>

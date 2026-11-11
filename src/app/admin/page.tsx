@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { collection, getDocs, orderBy, query, limit } from "firebase/firestore";
+import Link from "next/link";
+import { collection, getDocs, orderBy, query, limit, where } from "firebase/firestore";
 import { db } from "../../lib/firebase";
 
 type Application = {
@@ -14,20 +15,32 @@ type Application = {
 };
 
 export default function AdminPage() {
-  const [total, setTotal] = useState<number | null>(null);
+  const [appCount, setAppCount] = useState<number | null>(null);
+  const [courseCount, setCourseCount] = useState<number | null>(null);
+  const [jobCount, setJobCount] = useState<number | null>(null);
   const [recent, setRecent] = useState<Application[]>([]);
 
   useEffect(() => {
     async function load() {
-      const snap = await getDocs(collection(db, "applications"));
-      setTotal(snap.size);
-
-      const q = query(collection(db, "applications"), orderBy("createdAt", "desc"), limit(5));
-      const recentSnap = await getDocs(q);
+      const [appSnap, courseSnap, jobSnap, recentSnap] = await Promise.all([
+        getDocs(collection(db, "applications")),
+        getDocs(collection(db, "courses")),
+        getDocs(query(collection(db, "jobs"), where("archived", "==", false))),
+        getDocs(query(collection(db, "applications"), orderBy("createdAt", "desc"), limit(5))),
+      ]);
+      setAppCount(appSnap.size);
+      setCourseCount(courseSnap.size);
+      setJobCount(jobSnap.size);
       setRecent(recentSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Application)));
     }
     load();
   }, []);
+
+  const stats = [
+    { label: "Total Applications", value: appCount, href: "/admin/applications" },
+    { label: "Active Courses", value: courseCount, href: "/admin/courses" },
+    { label: "Open Positions", value: jobCount, href: "/admin/jobs" },
+  ];
 
   return (
     <div className="flex flex-col gap-8">
@@ -36,28 +49,19 @@ export default function AdminPage() {
         <p className="mt-1 font-body text-sm text-muted">Welcome back. Here&rsquo;s a summary of NS-VTC activity.</p>
       </div>
 
-      {/* Stat cards */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <div className="rounded-card border border-border bg-white p-6">
-          <p className="font-body text-xs font-semibold uppercase tracking-widest text-muted">Total Applications</p>
-          <p className="mt-2 font-heading text-4xl font-extrabold text-ink">
-            {total === null ? "—" : total}
-          </p>
-        </div>
-        <div className="rounded-card border border-border bg-white p-6">
-          <p className="font-body text-xs font-semibold uppercase tracking-widest text-muted">Courses Offered</p>
-          <p className="mt-2 font-heading text-4xl font-extrabold text-ink">8</p>
-        </div>
-        <div className="rounded-card border border-border bg-white p-6">
-          <p className="font-body text-xs font-semibold uppercase tracking-widest text-muted">Open Positions</p>
-          <p className="mt-2 font-heading text-4xl font-extrabold text-ink">5</p>
-        </div>
+        {stats.map((s) => (
+          <Link key={s.label} href={s.href} className="rounded-card border border-border bg-white p-6 transition-shadow hover:shadow-md">
+            <p className="font-body text-xs font-semibold uppercase tracking-widest text-muted">{s.label}</p>
+            <p className="mt-2 font-heading text-4xl font-extrabold text-ink">{s.value === null ? "—" : s.value}</p>
+          </Link>
+        ))}
       </div>
 
-      {/* Recent applications */}
       <div className="rounded-card border border-border bg-white">
-        <div className="border-b border-border px-6 py-4">
+        <div className="flex items-center justify-between border-b border-border px-6 py-4">
           <h2 className="font-heading text-base font-bold text-ink">Recent Applications</h2>
+          <Link href="/admin/applications" className="font-body text-xs font-semibold text-navy hover:underline">View all</Link>
         </div>
         {recent.length === 0 ? (
           <p className="px-6 py-8 font-body text-sm text-muted">No applications yet.</p>

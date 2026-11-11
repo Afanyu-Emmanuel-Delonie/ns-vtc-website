@@ -36,7 +36,11 @@ const darkHeroRoutes = ["/", "/about"];
 const darkHeroPrefixes = ["/programs", "/corporate-training", "/careers"];
 
 export default function Nav() {
-  const pathname = usePathname();
+  const rawPathname = usePathname();
+  const pathname =
+    rawPathname.length > 1 && rawPathname.endsWith("/")
+      ? rawPathname.slice(0, -1)
+      : rawPathname;
   const hasDarkHero =
     darkHeroRoutes.includes(pathname) ||
     darkHeroPrefixes.some((prefix) => pathname.startsWith(prefix));
