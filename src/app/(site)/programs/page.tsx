@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import PageHero from "../../components/PageHero";
 import Reveal from "../../components/Reveal";
@@ -95,14 +96,12 @@ export default function ProgramsPage() {
               <RevealItem key={course.slug}>
                 <Link
                   href={`/programs/${course.slug}`}
-                  className="group flex h-full flex-col items-center gap-2 rounded-card bg-white p-4 text-center shadow-sm transition-all duration-200 hover:-translate-y-1 hover:bg-navy hover:shadow-md"
+                  className="group flex h-full flex-col items-center gap-2 rounded-card bg-white p-4 text-center shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md"
                 >
-                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-surface text-navy transition-colors group-hover:bg-white/10 group-hover:text-white">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      {course.icon}
-                    </svg>
+                  <span className="inline-flex h-9 w-9 overflow-hidden rounded-full bg-surface">
+                    <Image src={course.image} alt={course.title} width={36} height={36} className="h-full w-full object-cover" />
                   </span>
-                  <span className="font-body text-xs font-semibold text-ink transition-colors group-hover:text-white">
+                  <span className="font-body text-xs font-semibold text-ink">
                     {course.title}
                   </span>
                 </Link>
