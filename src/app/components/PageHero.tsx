@@ -21,7 +21,7 @@ type Props = {
 export default function PageHero({ eyebrow, title, description, image, actions }: Props) {
   return (
     <section
-      className={`relative flex min-h-[45vh] w-full items-center overflow-hidden bg-navy-dark${image ? " bg-cover bg-center" : ""}`}
+      className={`relative flex min-h-[60vh] w-full items-center overflow-hidden bg-navy-dark${image ? " bg-cover bg-center" : ""}`}
       style={image ? { backgroundImage: `url('${image}')` } : undefined}
     >
       <div className={`absolute inset-0 ${image ? "bg-navy-dark/80" : "bg-navy-dark"}`} />

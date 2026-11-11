@@ -85,7 +85,7 @@ export const tvetCourses: Course[] = [
     duration: "6 Months",
     registerLabel: "Tailoring (6 Months)",
     tagline: "Develop garment-making skills from taking measurements and pattern cutting through to operating sewing machines and producing finished clothing.",
-    image: "/assets/courses/tailoring.jpg",
+    image: "/assets/hero2.png",
     areas: [
       "Introduction to tailoring and fashion design",
       "Identification and use of sewing tools",

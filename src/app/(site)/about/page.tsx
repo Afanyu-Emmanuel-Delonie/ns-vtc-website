@@ -21,7 +21,7 @@ export default function AboutPage() {
       <PageHero
         eyebrow="About NS-VTC"
         title="Who We Are"
-        description="A vocational training institution in Rilima Sector, Bugesera District, committed to practical skills development and workplace safety."
+        description="A vocational training institution in Rilima Sector, Bugesera District, committed to equipping individuals with practical trade skills and workplace safety knowledge that lead to real employment and self-reliance."
         actions={[
           { href: "/programs", label: "Explore Programs", variant: "secondaryOnDark" },
           { href: "/#contact", label: "Get in Touch", variant: "accent" },

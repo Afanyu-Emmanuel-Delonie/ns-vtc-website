@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../lib/firebase";
 import { authErrorMessage } from "../../lib/authErrors";
 import { Button } from "../components/Button";
@@ -17,6 +17,13 @@ export default function SignInPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Redirect already-authenticated users straight to admin
+  useEffect(() => {
+    return onAuthStateChanged(auth, (u) => {
+      if (u) router.replace("/admin");
+    });
+  }, [router]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
