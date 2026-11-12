@@ -11,6 +11,7 @@ export const CONTACT = {
   phoneHrefs: ["tel:+250788986489", "tel:+250799528247", "tel:+250799524906"],
   primaryPhone: "+250 788 986 489",
   primaryPhoneHref: "tel:+250788986489",
+  whatsappNumber: "250788986489",
   email: "newtonvtc@gmail.com",
   emailHref: "mailto:newtonvtc@gmail.com",
   address: {
@@ -19,6 +20,43 @@ export const CONTACT = {
     full: "Rilima Sector, Bugesera District, Eastern Province, Rwanda",
   },
 } as const;
+
+export const faqs = [
+  {
+    question: "Where is NS-VTC located?",
+    answer: `We are located in ${CONTACT.address.full}.`,
+  },
+  {
+    question: "Which courses do you offer?",
+    answer:
+      "We offer scaffolding, steel fixing, tailoring, welding, carpentry, painting, HSE and masonry training.",
+  },
+  {
+    question: "How long does training take?",
+    answer:
+      "Tailoring and welding take six months each, HSE and masonry take three months each. Other course durations should be confirmed with the institution.",
+  },
+  {
+    question: "Is accommodation available?",
+    answer:
+      "Yes. Accommodation arrangements are available for both male and female trainees. Contact the institution for availability and arrangements.",
+  },
+  {
+    question: "How can I register?",
+    answer:
+      "Contact us by telephone or email to receive information about registration, requirements and upcoming training schedules.",
+  },
+  {
+    question: "Can companies request training?",
+    answer:
+      "Yes. Companies and organizations can contact us to discuss corporate and workplace training needs.",
+  },
+  {
+    question: "Do you provide employment after training?",
+    answer:
+      "Our training aims to prepare learners for employment and self-employment opportunities. Employment is not guaranteed.",
+  },
+];
 
 export const SOCIAL_LINKS = {
   facebook: "#",
@@ -49,7 +87,7 @@ export const tvetCourses: Course[] = [
     duration: null,
     registerLabel: "Scaffolding",
     tagline: "Learn to safely erect, dismantle and inspect scaffolding structures used on construction sites, with a strong focus on working at heights and fall prevention.",
-    image: "/assets/courses/scaffolding.jpg",
+    image: "/assets/courses/scaffolding.jpeg",
     areas: [
       "Introduction to scaffolding systems and components",
       "Identification of scaffolding tools and equipment",
@@ -67,7 +105,7 @@ export const tvetCourses: Course[] = [
     duration: null,
     registerLabel: "Steel Fixing",
     tagline: "Master the cutting, bending, placing and tying of reinforcement steel to prepare structural frameworks for concrete construction projects.",
-    image: "/assets/courses/steel-fixing.jpg",
+    image: "/assets/courses/steel-fixing.jpeg",
     areas: [
       "Identification of reinforcement steel",
       "Construction drawings and reinforcement specifications",
@@ -105,7 +143,7 @@ export const tvetCourses: Course[] = [
     duration: "6 Months",
     registerLabel: "Welding (6 Months)",
     tagline: "Gain hands-on experience in metal fabrication, welding joints, cutting and workshop safety, building the skills needed for a career in metalwork.",
-    image: "/assets/courses/welding.jpg",
+    image: "/assets/courses/welding.png",
     areas: [
       "Introduction to welding and metal fabrication",
       "Identification of welding tools and equipment",
@@ -125,7 +163,7 @@ export const tvetCourses: Course[] = [
     duration: null,
     registerLabel: "Carpentry",
     tagline: "Learn woodworking fundamentals including measuring, cutting, joining and finishing, covering furniture construction, door fitting and workshop safety.",
-    image: "/assets/courses/carpentry.jpg",
+    image: "/assets/courses/capentry.png",
     areas: [
       "Introduction to carpentry and woodworking",
       "Identification of wood types and materials",
@@ -145,7 +183,7 @@ export const tvetCourses: Course[] = [
     duration: null,
     registerLabel: "Painting",
     tagline: "Build professional painting skills covering surface preparation, paint mixing, interior and exterior application, and decorative finishing techniques.",
-    image: "/assets/courses/painting.jpg",
+    image: "/assets/courses/painting.png",
     areas: [
       "Introduction to painting and decoration",
       "Identification of paints and painting materials",
@@ -165,7 +203,7 @@ export const tvetCourses: Course[] = [
     duration: "3 Months",
     registerLabel: "Masonry (3 Months)",
     tagline: "Learn bricklaying, block laying, mortar mixing, plastering and site preparation, practical skills for a career in building and construction.",
-    image: "/assets/courses/masonry.jpg",
+    image: "/assets/courses/masonry.jpeg",
     areas: [
       "Introduction to masonry and construction",
       "Identification of construction tools and materials",

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence, type Variants } from "motion/react";
+import Image from "next/image";
 import { LinkButton } from "./Button";
 
 const slides = [
@@ -32,77 +33,36 @@ const item: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
 };
 
-function preloadImage(src: string): Promise<void> {
-  return new Promise((resolve) => {
-    const img = new Image();
-    img.onload = () => resolve();
-    img.onerror = () => resolve(); // resolve anyway so slider never gets stuck
-    img.src = src;
-  });
-}
-
 export default function Hero() {
   const [current, setCurrent] = useState(0);
-  const [loaded, setLoaded] = useState<boolean[]>([true, false, false]); // first slide assumed loaded
 
-  // preload next slide in background
-  const preloadNext = useCallback(async (index: number) => {
-    if (loaded[index]) return;
-    await preloadImage(slides[index].image);
-    setLoaded((prev) => {
-      const next = [...prev];
-      next[index] = true;
-      return next;
-    });
-  }, [loaded]);
-
-  // preload slide 2 after first render
   useEffect(() => {
-    preloadNext(1);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // auto-advance only when next slide is loaded
-  useEffect(() => {
-    const nextIndex = (current + 1) % slides.length;
-
-    if (!loaded[nextIndex]) {
-      // wait for it to load then advance
-      preloadImage(slides[nextIndex].image).then(() => {
-        setLoaded((prev) => {
-          const next = [...prev];
-          next[nextIndex] = true;
-          return next;
-        });
-      });
-      return;
-    }
-
     const timer = setTimeout(() => {
-      setCurrent(nextIndex);
-      // preload the one after next
-      const afterNext = (nextIndex + 1) % slides.length;
-      preloadNext(afterNext);
+      setCurrent((prev) => (prev + 1) % slides.length);
     }, 5000);
-
     return () => clearTimeout(timer);
-  }, [current, loaded, preloadNext]);
+  }, [current]);
 
   return (
     <section className="relative isolate flex min-h-[80vh] w-full items-center overflow-hidden md:min-h-screen 2xl:min-h-[80vh]">
-      {/* preloaded bg layers — only render when loaded */}
-      {slides.map((slide, i) =>
-        loaded[i] ? (
-          <motion.div
-            key={i}
-            initial={false}
-            animate={{ opacity: i === current ? 1 : 0 }}
-            transition={{ duration: 1 }}
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: `url('${slide.image}')` }}
+      {slides.map((slide, i) => (
+        <motion.div
+          key={i}
+          initial={false}
+          animate={{ opacity: i === current ? 1 : 0 }}
+          transition={{ duration: 1 }}
+          className="absolute inset-0"
+        >
+          <Image
+            src={slide.image}
+            alt=""
+            fill
+            className="object-cover object-center"
+            priority={i === 0}
+            loading={i === 0 ? "eager" : "lazy"}
           />
-        ) : null
-      )}
+        </motion.div>
+      ))}
 
       {/* overlay */}
       <div className="absolute inset-0 bg-black/40" />

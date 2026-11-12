@@ -6,6 +6,7 @@ import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../lib/firebase";
 import CourseSelect from "../components/CourseSelect";
 import { Button } from "../components/Button";
+import { CONTACT } from "../constants";
 
 const courses = [
   "Select a course",
@@ -47,7 +48,7 @@ function RegisterForm() {
       const name = (data.firstName as string) || "";
       const course = (data.course as string) || "a course";
       const msg = encodeURIComponent(`Hi, my name is ${name}, I just sent you an application for ${course}`);
-      window.open(`https://wa.me/250792523110?text=${msg}`, "_blank");
+      window.open(`https://wa.me/${CONTACT.whatsappNumber}?text=${msg}`, "_blank");
     } catch {
       setError("Failed to submit. Please try again.");
     }

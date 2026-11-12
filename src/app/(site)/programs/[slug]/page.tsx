@@ -20,8 +20,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const course = getCourse(slug);
   if (!course) return {};
   return {
-    title: `${course.title} Training | NS-VTC`,
+    title: `${course.title} Training Course in Rwanda`,
     description: course.tagline,
+    alternates: { canonical: `/programs/${slug}` },
+    openGraph: { url: `/programs/${slug}` },
   };
 }
 
@@ -32,8 +34,32 @@ export default async function CoursePage({ params }: Props) {
 
   const otherCourses = tvetCourses.filter((c) => c.slug !== course.slug);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    name: `${course.title} Training`,
+    description: course.tagline,
+    provider: {
+      "@type": "EducationalOrganization",
+      name: "NS-VTC",
+      sameAs: "https://newtonsafetyvtc.com",
+    },
+    hasCourseInstance: {
+      "@type": "CourseInstance",
+      courseMode: "Onsite",
+      location: {
+        "@type": "Place",
+        name: "NS-VTC, Bugesera District, Rwanda",
+      },
+    },
+  };
+
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Course Header */}
       <section className="relative overflow-hidden bg-navy-dark pb-0 pt-28">
         {/* dot pattern */}
@@ -164,26 +190,56 @@ export default async function CoursePage({ params }: Props) {
 
       <AdmissionSections applyHref={`/register?course=${encodeURIComponent(course.registerLabel)}`} applyLabel="Apply for this Course" />
 
-      <section className="border-t border-border bg-surface px-[clamp(16px,5vw,64px)] py-[clamp(48px,6vw,80px)]">
+      <section className="border-t border-border bg-white px-[clamp(16px,5vw,64px)] py-[clamp(48px,6vw,80px)]">
         <div className="mx-auto max-w-(--container-site)">
-          <Reveal className="text-center">
-            <span className="text-xs font-bold uppercase tracking-widest text-orange">Explore More</span>
-            <h2 className="mt-2 font-heading text-2xl font-extrabold text-ink sm:text-3xl">Other TVET Courses</h2>
+          <Reveal className="flex flex-col items-start gap-1 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <span className="text-xs font-bold uppercase tracking-widest text-orange">Explore More</span>
+              <h2 className="mt-1 font-heading text-2xl font-extrabold text-ink sm:text-3xl">Other TVET Courses</h2>
+            </div>
+            <Link
+              href="/programs/tvet"
+              className="font-body text-sm font-semibold text-navy transition-colors hover:underline"
+            >
+              View all courses &rarr;
+            </Link>
           </Reveal>
 
-          <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+          <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {otherCourses.map((c) => (
               <Link
                 key={c.slug}
                 href={`/programs/${c.slug}`}
-                className="group flex flex-col overflow-hidden rounded-card bg-white shadow-sm transition-all duration-200 hover:-translate-y-1 hover:bg-navy hover:shadow-md"
+                className="group relative flex gap-4 overflow-hidden rounded-card border border-border bg-surface p-4 transition-all duration-200 hover:border-navy/20 hover:bg-navy hover:shadow-md"
               >
-                <div className="relative h-36 w-full flex-none">
-                  <Image src={c.image} alt={c.title} fill className="object-cover" />
+                <div className="relative h-20 w-20 flex-none overflow-hidden rounded-xl">
+                  <Image
+                    src={c.image}
+                    alt={c.title}
+                    fill
+                    sizes="80px"
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
                 </div>
-                <div className="flex flex-col gap-1 p-4">
-                  <p className="font-heading text-sm font-bold text-ink transition-colors group-hover:text-white">{c.title}</p>
-                  <p className="font-body text-xs leading-relaxed text-muted transition-colors group-hover:text-white/70">{c.tagline}</p>
+                <div className="flex min-w-0 flex-1 flex-col justify-between gap-1">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <p className="font-heading text-sm font-bold text-ink transition-colors group-hover:text-white">
+                        {c.title}
+                      </p>
+                      {c.duration && (
+                        <span className="flex-none rounded-full bg-navy/10 px-2 py-0.5 font-body text-[10px] font-semibold text-navy transition-colors group-hover:bg-white/20 group-hover:text-white">
+                          {c.duration}
+                        </span>
+                      )}
+                    </div>
+                    <p className="mt-1 line-clamp-2 font-body text-xs leading-relaxed text-muted transition-colors group-hover:text-white/70">
+                      {c.tagline}
+                    </p>
+                  </div>
+                  <span className="font-body text-[11px] font-semibold text-navy transition-colors group-hover:text-white/80 group-hover:underline">
+                    View course &rarr;
+                  </span>
                 </div>
               </Link>
             ))}

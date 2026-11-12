@@ -73,7 +73,7 @@ export default function Contact() {
       form.reset();
       const name = (data.fullName as string) || "";
       const msg = encodeURIComponent(`Hi, my name is ${name}, I just sent you an inquiry`);
-      window.open(`https://wa.me/250792523110?text=${msg}`, "_blank");
+      window.open(`https://wa.me/${CONTACT.whatsappNumber}?text=${msg}`, "_blank");
     } catch {
       setError("Failed to send. Please try again.");
     } finally {

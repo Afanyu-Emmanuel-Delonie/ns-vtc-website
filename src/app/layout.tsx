@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Manrope, Inter } from "next/font/google";
 import { MotionConfig } from "motion/react";
 import PageLoader from "./components/PageLoader";
+import { CONTACT, SITE_FULL_NAME } from "./constants";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -14,7 +15,27 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const siteUrl = "https://ns-vtc.rw";
+const siteUrl = "https://newtonsafetyvtc.com";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  "@id": `${siteUrl}/#organization`,
+  name: SITE_FULL_NAME,
+  alternateName: "NS-VTC",
+  url: siteUrl,
+  logo: `${siteUrl}/assets/logo.png`,
+  image: `${siteUrl}/assets/hero.png`,
+  telephone: CONTACT.primaryPhone,
+  email: CONTACT.email,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: CONTACT.address.line1,
+    addressLocality: "Bugesera District",
+    addressRegion: "Eastern Province",
+    addressCountry: "RW",
+  },
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -68,6 +89,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${manrope.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <MotionConfig reducedMotion="user">
           <PageLoader />
           {children}

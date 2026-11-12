@@ -29,11 +29,12 @@ const links = [
   { href: "/about", label: "About Us" },
   { href: "/programs", label: "Programs", dropdown: true },
   { href: "/careers", label: "Careers" },
+  { href: "/blog", label: "Blog" },
   { href: "/#contact", label: "Contact" },
 ];
 
-const darkHeroRoutes = ["/", "/about"];
-const darkHeroPrefixes = ["/programs", "/corporate-training", "/careers"];
+const darkHeroRoutes = ["/", "/about", "/admissions"];
+const darkHeroPrefixes = ["/programs", "/corporate-training", "/careers", "/blog"];
 
 export default function Nav() {
   const rawPathname = usePathname();
