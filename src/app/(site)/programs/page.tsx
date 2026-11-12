@@ -10,8 +10,11 @@ import AdmissionSections from "../../components/AdmissionSections";
 import { tvetCourses } from "../../constants";
 
 export const metadata: Metadata = {
-  title: "Programs | NS-VTC",
-  description: "Explore TVET, HSE and Corporate Training programs at Newton Safety and Vocational Training Center.",
+  title: "TVET & HSE Training Programs",
+  description:
+    "Browse TVET trade courses, HSE training and corporate training programs at NS-VTC in Bugesera, Rwanda — scaffolding, welding, masonry, carpentry, tailoring and more.",
+  alternates: { canonical: "/programs" },
+  openGraph: { url: "/programs" },
 };
 
 const patternCells = Array.from({ length: 25 }, (_, i) => {

@@ -2,44 +2,7 @@
 
 import { useState } from "react";
 import { LinkButton } from "./Button";
-import { CONTACT } from "../constants";
-
-const faqs = [
-  {
-    question: "Where is NS-VTC located?",
-    answer: `We are located in ${CONTACT.address.full}.`,
-  },
-  {
-    question: "Which courses do you offer?",
-    answer:
-      "We offer scaffolding, steel fixing, tailoring, welding, carpentry, painting, HSE and masonry training.",
-  },
-  {
-    question: "How long does training take?",
-    answer:
-      "Tailoring and welding take six months each, HSE and masonry take three months each. Other course durations should be confirmed with the institution.",
-  },
-  {
-    question: "Is accommodation available?",
-    answer:
-      "Yes. Accommodation arrangements are available for both male and female trainees. Contact the institution for availability and arrangements.",
-  },
-  {
-    question: "How can I register?",
-    answer:
-      "Contact us by telephone or email to receive information about registration, requirements and upcoming training schedules.",
-  },
-  {
-    question: "Can companies request training?",
-    answer:
-      "Yes. Companies and organizations can contact us to discuss corporate and workplace training needs.",
-  },
-  {
-    question: "Do you provide employment after training?",
-    answer:
-      "Our training aims to prepare learners for employment and self-employment opportunities. Employment is not guaranteed.",
-  },
-];
+import { faqs } from "../constants";
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);

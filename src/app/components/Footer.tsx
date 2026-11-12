@@ -11,13 +11,14 @@ const quickLinks = [
   { href: "/about", label: "About Us" },
   { href: "/programs", label: "Programs" },
   { href: "/careers", label: "Careers" },
+  { href: "/blog", label: "Blog" },
   { href: "#contact", label: "Contact Us" },
 ];
 
 const programLinks = [
-  { href: "/programs#tvet", label: "TVET Training" },
-  { href: "/programs#hse", label: "HSE Training" },
-  { href: "/programs#corporate", label: "Corporate Training" },
+  { href: "/programs/tvet", label: "TVET Training" },
+  { href: "/programs/hse", label: "HSE Training" },
+  { href: "/corporate-training", label: "Corporate Training" },
   { href: "/programs", label: "All Programs" },
 ];
 

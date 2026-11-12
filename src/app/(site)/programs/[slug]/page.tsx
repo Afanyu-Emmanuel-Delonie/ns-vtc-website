@@ -20,8 +20,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const course = getCourse(slug);
   if (!course) return {};
   return {
-    title: `${course.title} Training | NS-VTC`,
+    title: `${course.title} Training Course in Rwanda`,
     description: course.tagline,
+    alternates: { canonical: `/programs/${slug}` },
+    openGraph: { url: `/programs/${slug}` },
   };
 }
 
@@ -32,8 +34,32 @@ export default async function CoursePage({ params }: Props) {
 
   const otherCourses = tvetCourses.filter((c) => c.slug !== course.slug);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    name: `${course.title} Training`,
+    description: course.tagline,
+    provider: {
+      "@type": "EducationalOrganization",
+      name: "NS-VTC",
+      sameAs: "https://newtonsafetyvtc.com",
+    },
+    hasCourseInstance: {
+      "@type": "CourseInstance",
+      courseMode: "Onsite",
+      location: {
+        "@type": "Place",
+        name: "NS-VTC, Bugesera District, Rwanda",
+      },
+    },
+  };
+
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Course Header */}
       <section className="relative overflow-hidden bg-navy-dark pb-0 pt-28">
         {/* dot pattern */}
