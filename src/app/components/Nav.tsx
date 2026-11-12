@@ -29,7 +29,6 @@ const links = [
   { href: "/about", label: "About Us" },
   { href: "/programs", label: "Programs", dropdown: true },
   { href: "/careers", label: "Careers" },
-  { href: "/blog", label: "Blog" },
   { href: "/#contact", label: "Contact" },
 ];
 

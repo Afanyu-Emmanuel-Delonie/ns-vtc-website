@@ -88,7 +88,7 @@ export default async function BlogPostPage({ params }: Props) {
             </Reveal>
           ))}
 
-          <Reveal className="mt-4 rounded-card bg-surface p-6 text-center">
+          <Reveal className="mt-4">
             <LinkButton href={post.relatedHref} variant="accent">{post.relatedLabel}</LinkButton>
           </Reveal>
         </div>
