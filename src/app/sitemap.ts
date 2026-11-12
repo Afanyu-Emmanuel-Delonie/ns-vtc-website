@@ -18,7 +18,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/programs/hse`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
     { url: `${siteUrl}/corporate-training`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
     { url: `${siteUrl}/careers`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.6 },
-    { url: `${siteUrl}/blog`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.6 },
   ];
 
   const courseRoutes: MetadataRoute.Sitemap = tvetCourses.map((course) => ({
