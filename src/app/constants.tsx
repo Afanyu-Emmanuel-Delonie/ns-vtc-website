@@ -49,7 +49,7 @@ export const tvetCourses: Course[] = [
     duration: null,
     registerLabel: "Scaffolding",
     tagline: "Learn to safely erect, dismantle and inspect scaffolding structures used on construction sites, with a strong focus on working at heights and fall prevention.",
-    image: "/assets/courses/scaffolding.jpg",
+    image: "/assets/courses/scaffolding.jpeg",
     areas: [
       "Introduction to scaffolding systems and components",
       "Identification of scaffolding tools and equipment",
@@ -67,7 +67,7 @@ export const tvetCourses: Course[] = [
     duration: null,
     registerLabel: "Steel Fixing",
     tagline: "Master the cutting, bending, placing and tying of reinforcement steel to prepare structural frameworks for concrete construction projects.",
-    image: "/assets/courses/steel-fixing.jpg",
+    image: "/assets/courses/steel-fixing.jpeg",
     areas: [
       "Identification of reinforcement steel",
       "Construction drawings and reinforcement specifications",
@@ -105,7 +105,7 @@ export const tvetCourses: Course[] = [
     duration: "6 Months",
     registerLabel: "Welding (6 Months)",
     tagline: "Gain hands-on experience in metal fabrication, welding joints, cutting and workshop safety, building the skills needed for a career in metalwork.",
-    image: "/assets/courses/welding.jpg",
+    image: "/assets/courses/welding.png",
     areas: [
       "Introduction to welding and metal fabrication",
       "Identification of welding tools and equipment",
@@ -125,7 +125,7 @@ export const tvetCourses: Course[] = [
     duration: null,
     registerLabel: "Carpentry",
     tagline: "Learn woodworking fundamentals including measuring, cutting, joining and finishing, covering furniture construction, door fitting and workshop safety.",
-    image: "/assets/courses/carpentry.jpg",
+    image: "/assets/courses/capentry.png",
     areas: [
       "Introduction to carpentry and woodworking",
       "Identification of wood types and materials",
@@ -145,7 +145,7 @@ export const tvetCourses: Course[] = [
     duration: null,
     registerLabel: "Painting",
     tagline: "Build professional painting skills covering surface preparation, paint mixing, interior and exterior application, and decorative finishing techniques.",
-    image: "/assets/courses/painting.jpg",
+    image: "/assets/courses/painting.png",
     areas: [
       "Introduction to painting and decoration",
       "Identification of paints and painting materials",
@@ -165,7 +165,7 @@ export const tvetCourses: Course[] = [
     duration: "3 Months",
     registerLabel: "Masonry (3 Months)",
     tagline: "Learn bricklaying, block laying, mortar mixing, plastering and site preparation, practical skills for a career in building and construction.",
-    image: "/assets/courses/masonry.jpg",
+    image: "/assets/courses/masonry.jpeg",
     areas: [
       "Introduction to masonry and construction",
       "Identification of construction tools and materials",

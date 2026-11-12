@@ -17,14 +17,14 @@ const courses = [
     title: "Scaffolding",
     duration: null,
     description: "Erect, dismantle and inspect scaffolding structures with a focus on working at heights safely.",
-    image: "/assets/courses/scaffolding.jpg",
+    image: "/assets/courses/scaffolding.jpeg",
   },
   {
     href: "/register?course=Steel+Fixing",
     title: "Steel Fixing",
     duration: null,
     description: "Cut, bend, place and tie reinforcement steel to prepare structural frameworks for concrete construction.",
-    image: "/assets/courses/steel-fixing.jpg",
+    image: "/assets/courses/steel-fixing.jpeg",
   },
   {
     href: "/register?course=Tailoring+(6+Months)",
@@ -38,35 +38,35 @@ const courses = [
     title: "Welding",
     duration: "6 Months",
     description: "Hands-on metal fabrication, welding joints, cutting and workshop safety for a career in metalwork.",
-    image: "/assets/courses/welding.jpg",
+    image: "/assets/courses/welding.png",
   },
   {
     href: "/register?course=Carpentry",
     title: "Carpentry",
     duration: null,
     description: "Measuring, cutting, joining and finishing wood, covering furniture construction, door fitting and safety.",
-    image: "/assets/courses/carpentry.jpg",
+    image: "/assets/courses/capentry.png",
   },
   {
     href: "/register?course=Painting",
     title: "Painting",
     duration: null,
     description: "Surface preparation, paint mixing, interior and exterior application and decorative finishing techniques.",
-    image: "/assets/courses/painting.jpg",
+    image: "/assets/courses/painting.png",
   },
   {
     href: "/register?course=HSE+Training+(3+Months)",
     title: "HSE",
     duration: "3 Months",
     description: "Workplace health, safety and environmental responsibilities including hazard identification and PPE.",
-    image: "/assets/courses/hse.jpg",
+    image: "/assets/courses/hse.jpeg",
   },
   {
     href: "/register?course=Masonry+(3+Months)",
     title: "Masonry",
     duration: "3 Months",
     description: "Bricklaying, block laying, mortar mixing, plastering and site preparation for building and construction.",
-    image: "/assets/courses/masonry.jpg",
+    image: "/assets/courses/masonry.jpeg",
   },
 ];
 
@@ -114,7 +114,7 @@ export default function FeaturedCourses() {
                 </div>
 
                 <div className="relative h-44 w-full flex-none">
-                  <Image src={c.image} alt={c.title} fill className="object-cover" />
+                  <Image src={c.image} alt={c.title} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" className="object-cover" />
                 </div>
 
                 <div className="flex flex-1 flex-col gap-3 bg-surface p-5 transition-colors duration-200 group-hover:bg-ink/5">

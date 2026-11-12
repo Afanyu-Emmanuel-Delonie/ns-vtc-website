@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Image from "next/image";
 import { LinkButton } from "./Button";
 
 const patternCells = Array.from({ length: 6 }, (_, row) =>
@@ -20,10 +21,10 @@ type Props = {
 
 export default function PageHero({ eyebrow, title, description, image, actions }: Props) {
   return (
-    <section
-      className={`relative flex min-h-[60vh] w-full items-center overflow-hidden bg-navy-dark${image ? " bg-cover bg-center" : ""}`}
-      style={image ? { backgroundImage: `url('${image}')` } : undefined}
-    >
+    <section className="relative flex min-h-[60vh] w-full items-center overflow-hidden bg-navy-dark">
+      {image && (
+        <Image src={image} alt="" fill className="object-cover object-center" priority />
+      )}
       <div className={`absolute inset-0 ${image ? "bg-navy-dark/80" : "bg-navy-dark"}`} />
       <div
         className="pointer-events-none absolute -right-4 -top-4 grid grid-cols-6 gap-1.5"
