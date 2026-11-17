@@ -1,0 +1,60 @@
+1:"$Sreact.fragment"
+2:"/_next/static/chunks/3kvt1r-te-xlp.js"
+3:I[63209,["$2"],"MotionConfig"]
+4:I[37133,["$2"],"default"]
+5:I[39756,["$2"],"default"]
+6:I[37457,["$2"],"default"]
+7:"/_next/static/chunks/3zt_16xndew4w.js"
+8:I[22016,["$2","$7"],""]
+c:"/_next/static/chunks/07pgum2ms8ydd.js"
+d:"/_next/static/chunks/2taosuc8med05.js"
+e:I[19739,["$2","$c","$d"],"default"]
+1d:"ViewportBoundary"
+1e:I[97367,["$2"],"$1d"]
+1f:"MetadataBoundary"
+20:I[97367,["$2"],"$1f"]
+21:"$Sreact.suspense"
+:HL["/_next/static/chunks/40k751d09t2ff.css","style"]
+a:X
+16:X
+16:C
+1a:[["children",{"s":"__PAGE__","h":160,"d":{"r":"$L1b","p":"$@1c","v":null,"s":"$a"}}]]
+17:[["children",{"s":"hse","h":96,"d":{"r":"$L18","p":"$@19","v":"$16","s":"$a"},"c":"$Q1a"}]]
+13:[["children",{"s":"programs","h":96,"d":{"r":"$L14","p":"$@15","v":"$16","s":"$a"},"c":"$Q17"}]]
+b:[["children",{"s":"(site)","h":96,"d":{"r":["$","$1","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/07pgum2ms8ydd.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/2taosuc8med05.js","async":true}]],[["$","$Le",null,{}],["$","$L5",null,{"parallelRouterKey":"children","template":["$","$L6",null,{}],"notFound":[["$","main",null,{"className":"flex min-h-screen flex-col items-center justify-center bg-surface px-4 pb-20 pt-32 text-center","children":["$","div",null,{"className":"relative flex flex-col items-center","children":[["$","span",null,{"aria-hidden":"true","className":"pointer-events-none absolute left-1/2 top-1/2 -z-10 -translate-x-1/2 -translate-y-1/2 select-none font-heading text-[clamp(120px,22vw,260px)] font-extrabold leading-none text-border","children":"404"}],["$","h1",null,{"className":"font-heading text-[clamp(28px,3.4vw,40px)] font-extrabold leading-[1.15] text-ink","children":"Page Not Found"}],["$","p",null,{"className":"mt-3 max-w-sm font-body text-[15px] leading-[1.6] text-muted","children":"The page you're looking for doesn't exist or may have been moved."}],["$","$L8",null,{"className":"inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-7 font-body text-base font-semibold no-underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-navy text-white hover:bg-navy-dark focus-visible:ring-navy mt-8","href":"/","children":["Go to Home","$Lf"]}]]}]}],[]]}],"$L10","$L11"]]}],"p":"$@12","v":null,"s":"$a"},"c":"$Q13"}]]
+0:{"t":{"t":{"s":"","h":80,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/40k751d09t2ff.css","precedence":"next"}],["$","script","script-0",{"src":"/_next/static/chunks/3kvt1r-te-xlp.js","async":true}]],["$","html",null,{"lang":"en","className":"_1ltb7q_variable LINzvG_variable h-full antialiased","children":["$","body",null,{"className":"min-h-full flex flex-col","suppressHydrationWarning":true,"children":[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"EducationalOrganization\",\"@id\":\"https://newtonsafetyvtc.com/#organization\",\"name\":\"Newton Safety and Vocational Training Center\",\"alternateName\":\"NS-VTC\",\"url\":\"https://newtonsafetyvtc.com\",\"logo\":\"https://newtonsafetyvtc.com/assets/logo.png\",\"image\":\"https://newtonsafetyvtc.com/assets/hero.png\",\"telephone\":\"+250 788 986 489\",\"email\":\"newtonvtc@gmail.com\",\"address\":{\"@type\":\"PostalAddress\",\"streetAddress\":\"Rilima Sector, Bugesera District\",\"addressLocality\":\"Bugesera District\",\"addressRegion\":\"Eastern Province\",\"addressCountry\":\"RW\"}}"}}],["$","$L3",null,{"reducedMotion":"user","children":[["$","$L4",null,{}],["$","$L5",null,{"parallelRouterKey":"children","template":["$","$L6",null,{}],"notFound":[["$","main",null,{"className":"flex min-h-screen flex-col items-center justify-center bg-surface px-4 pb-20 pt-32 text-center","children":["$","div",null,{"className":"relative flex flex-col items-center","children":[["$","span",null,{"aria-hidden":"true","className":"pointer-events-none absolute left-1/2 top-1/2 -z-10 -translate-x-1/2 -translate-y-1/2 select-none font-heading text-[clamp(120px,22vw,260px)] font-extrabold leading-none text-border","children":"404"}],["$","h1",null,{"className":"font-heading text-[clamp(28px,3.4vw,40px)] font-extrabold leading-[1.15] text-ink","children":"Page Not Found"}],["$","p",null,{"className":"mt-3 max-w-sm font-body text-[15px] leading-[1.6] text-muted","children":"The page you're looking for doesn't exist or may have been moved."}],["$","$L8",null,{"className":"inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-7 font-body text-base font-semibold no-underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-navy text-white hover:bg-navy-dark focus-visible:ring-navy mt-8","href":"/","children":["Go to Home",["$","svg",null,{"width":"16","height":"16","viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":"2","strokeLinecap":"round","strokeLinejoin":"round","aria-hidden":"true","children":["$","path",null,{"d":"M5 12h14M13 6l6 6-6 6"}]}]]}]]}]}],[]]}]]}]]}]}]]}],"p":"$@9","v":null,"s":"$a"},"c":"$Qb"},"h":{"r":["$","$1","h",{"children":[null,["$","$L1e",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L20",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$21",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"HSE Training in Rwanda | NS-VTC"}],["$","meta","1",{"name":"description","content":"Affordable occupational health and safety (HSE) training in Bugesera, Rwanda. Hazard identification, risk assessment, fire safety and workplace safety at NS-VTC."}],["$","meta","2",{"name":"author","content":"NS-VTC"}],["$","meta","3",{"name":"keywords","content":"vocational training Rwanda,TVET Rwanda,HSE training Rwanda,Bugesera training center,NS-VTC,Newton Safety Vocational Training,scaffolding training Rwanda,welding training Rwanda"}],["$","meta","4",{"name":"robots","content":"index, follow"}],["$","link","5",{"rel":"canonical","href":"https://newtonsafetyvtc.com/programs/hse/"}],["$","meta","6",{"property":"og:title","content":"HSE Training in Rwanda | NS-VTC"}],["$","meta","7",{"property":"og:description","content":"Affordable occupational health and safety (HSE) training in Bugesera, Rwanda. Hazard identification, risk assessment, fire safety and workplace safety at NS-VTC."}],"$L22","$L23","$L24","$L25","$L26","$L27","$L28","$L29","$L2a"]}]}],null]}],"$L2b"]}],"p":"$@2c","v":null,"s":"$a"}},"a":"$@2d","u":"$@2e","b":"iFLyMZfDXsUKtFWMl_m0V"}
+2f:I[58897,["$2","$c","$d"],"default"]
+30:I[1906,["$2","$c","$d"],"default"]
+31:"/_next/static/chunks/3fn6w93q8uj-6.js"
+32:"/_next/static/chunks/2xdfnquoirhie.js"
+33:"/_next/static/chunks/0oylna3w9f48e.js"
+34:I[30146,["$2","$c","$d","$31","$32","$33"],"default"]
+35:I[97367,["$2"],"OutletBoundary"]
+37:I[27201,["$2"],"IconMark"]
+f:["$","svg",null,{"width":"16","height":"16","viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":"2","strokeLinecap":"round","strokeLinejoin":"round","aria-hidden":"true","children":["$","path",null,{"d":"M5 12h14M13 6l6 6-6 6"}]}]
+10:["$","$L2f",null,{}]
+11:["$","$L30",null,{}]
+14:["$","$1","c",{"children":[null,["$","$L5",null,{"parallelRouterKey":"children","template":["$","$L6",null,{}]}]]}]
+18:["$","$1","c",{"children":[null,["$","$L5",null,{"parallelRouterKey":"children","template":["$","$L6",null,{}]}]]}]
+1b:["$","$1","c",{"children":[["$","$L34",null,{}],[["$","script","script-0",{"src":"/_next/static/chunks/3fn6w93q8uj-6.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/2xdfnquoirhie.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/0oylna3w9f48e.js","async":true}]],["$","$L35",null,{"children":["$","$21",null,{"name":"Next.MetadataOutlet","children":"$@36"}]}]]}]
+22:["$","meta","8",{"property":"og:url","content":"https://newtonsafetyvtc.com/programs/hse/"}]
+23:["$","meta","9",{"name":"twitter:card","content":"summary_large_image"}]
+24:["$","meta","10",{"name":"twitter:title","content":"NS-VTC | Newton Safety & Vocational Training Center"}]
+25:["$","meta","11",{"name":"twitter:description","content":"Practical TVET, HSE and corporate training programs in Bugesera District, Rwanda."}]
+26:["$","meta","12",{"name":"twitter:image","content":"https://newtonsafetyvtc.com/assets/hero.png"}]
+27:["$","link","13",{"rel":"shortcut icon","href":"/assets/logos/favicon.ico"}]
+28:["$","link","14",{"rel":"icon","href":"/assets/logos/favicon.ico","type":"image/x-icon"}]
+29:["$","link","15",{"rel":"apple-touch-icon","href":"/assets/logos/favicon.ico"}]
+2a:["$","$L37","16",{}]
+2b:["$","meta",null,{"name":"next-size-adjust","content":""}]
+a:300
+36:null
+2e:true
+a:C
+2d:0
+19:"$undefined"
+15:"$undefined"
+12:"$undefined"
+9:"$undefined"
+2c:"$undefined"
+1c:"$undefined"

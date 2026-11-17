@@ -1,0 +1,8 @@
+User-Agent: *
+Allow: /
+Disallow: /register
+Disallow: /admin
+Disallow: /signin
+Disallow: /forgot-password
+
+Sitemap: https://newtonsafetyvtc.com/sitemap.xml
