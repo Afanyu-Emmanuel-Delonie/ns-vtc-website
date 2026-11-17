@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { collection, getDocs, deleteDoc, writeBatch, orderBy, query, doc } from "firebase/firestore";
 import { db } from "../../../lib/firebase";
 import { exportCsv } from "../../../lib/exportCsv";
+import { EmptyState, EmptyInboxIcon, EmptySearchIcon } from "../components/EmptyState";
 
 type Contact = {
   id: string;
@@ -115,7 +116,27 @@ export default function ContactsPage() {
           {loading ? (
             <p className="px-6 py-8 font-body text-sm text-muted">Loading...</p>
           ) : filtered.length === 0 ? (
-            <p className="px-6 py-8 font-body text-sm text-muted">No messages found.</p>
+            contacts.length === 0 ? (
+              <EmptyState
+                icon={<EmptyInboxIcon />}
+                title="No messages yet"
+                description="Messages submitted through the homepage contact form will show up here."
+              />
+            ) : (
+              <EmptyState
+                icon={<EmptySearchIcon />}
+                title="No matching messages"
+                description="Try a different search term."
+                action={
+                  <button
+                    onClick={() => setSearch("")}
+                    className="rounded-control border border-border px-4 py-2 font-body text-sm font-semibold text-ink hover:bg-surface"
+                  >
+                    Clear search
+                  </button>
+                }
+              />
+            )
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full font-body text-sm">

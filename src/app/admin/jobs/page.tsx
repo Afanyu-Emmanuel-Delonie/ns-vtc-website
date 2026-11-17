@@ -7,6 +7,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../../lib/firebase";
 import { exportCsv } from "../../../lib/exportCsv";
+import { EmptyState, EmptyBriefcaseIcon, EmptyArchiveIcon } from "../components/EmptyState";
 
 type Job = {
   id: string;
@@ -317,7 +318,24 @@ export default function JobsPage() {
         {loading ? (
           <p className="px-6 py-8 font-body text-sm text-muted">Loading...</p>
         ) : visible.length === 0 ? (
-          <p className="px-6 py-8 font-body text-sm text-muted">{showArchived ? "No archived jobs." : "No active jobs. Add one above."}</p>
+          showArchived ? (
+            <EmptyState
+              icon={<EmptyArchiveIcon />}
+              title="No archived jobs"
+              description="Jobs you archive will be kept here instead of being deleted."
+            />
+          ) : (
+            <EmptyState
+              icon={<EmptyBriefcaseIcon />}
+              title="No active jobs"
+              description="Open positions you add will appear here and on the public careers page."
+              action={
+                <button onClick={() => setMode("add")} className="rounded-control bg-navy px-4 py-2 font-body text-sm font-semibold text-white transition-opacity hover:opacity-80">
+                  + Add Job
+                </button>
+              }
+            />
+          )
         ) : (
           <table className="w-full font-body text-sm">
             <thead>
