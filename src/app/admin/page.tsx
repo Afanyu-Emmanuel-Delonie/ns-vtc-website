@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { collection, getDocs, orderBy, query, limit, where } from "firebase/firestore";
 import { db } from "../../lib/firebase";
+import { EmptyState, EmptyInboxIcon } from "./components/EmptyState";
 
 type Application = {
   id: string;
@@ -60,7 +61,11 @@ export default function AdminPage() {
           <Link href="/admin/applications" className="font-body text-xs font-semibold text-navy hover:underline">View all</Link>
         </div>
         {recent.length === 0 ? (
-          <p className="px-6 py-8 font-body text-sm text-muted">No applications yet.</p>
+          <EmptyState
+            icon={<EmptyInboxIcon />}
+            title="No applications yet"
+            description="Submissions from the admissions form will show up here as they come in."
+          />
         ) : (
           <table className="w-full font-body text-sm">
             <thead>

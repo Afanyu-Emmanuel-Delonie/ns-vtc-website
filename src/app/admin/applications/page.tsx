@@ -5,6 +5,7 @@ import { collection, getDocs, deleteDoc, writeBatch, orderBy, query, doc } from 
 import { db } from "../../../lib/firebase";
 import Link from "next/link";
 import { exportCsv } from "../../../lib/exportCsv";
+import { EmptyState, EmptyDocumentsIcon, EmptySearchIcon } from "../components/EmptyState";
 
 type Application = {
   id: string;
@@ -137,7 +138,27 @@ export default function ApplicationsPage() {
           {loading ? (
             <p className="px-6 py-8 font-body text-sm text-muted">Loading...</p>
           ) : filtered.length === 0 ? (
-            <p className="px-6 py-8 font-body text-sm text-muted">No applications found.</p>
+            applications.length === 0 ? (
+              <EmptyState
+                icon={<EmptyDocumentsIcon />}
+                title="No applications yet"
+                description="Submissions from the admissions form will appear here as they come in."
+              />
+            ) : (
+              <EmptyState
+                icon={<EmptySearchIcon />}
+                title="No matching applications"
+                description="Try a different search term or course filter."
+                action={
+                  <button
+                    onClick={() => { setSearch(""); setCourseFilter("All"); }}
+                    className="rounded-control border border-border px-4 py-2 font-body text-sm font-semibold text-ink hover:bg-surface"
+                  >
+                    Clear filters
+                  </button>
+                }
+              />
+            )
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full font-body text-sm">
