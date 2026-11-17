@@ -67,28 +67,30 @@ export default function AdminPage() {
             description="Submissions from the admissions form will show up here as they come in."
           />
         ) : (
-          <table className="w-full font-body text-sm">
-            <thead>
-              <tr className="border-b border-border text-left">
-                <th className="px-6 py-3 font-semibold text-muted">Name</th>
-                <th className="px-6 py-3 font-semibold text-muted">Phone</th>
-                <th className="px-6 py-3 font-semibold text-muted">Course</th>
-                <th className="px-6 py-3 font-semibold text-muted">Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {recent.map((a) => (
-                <tr key={a.id} className="border-b border-border last:border-0">
-                  <td className="px-6 py-3 font-medium text-ink">{a.firstName} {a.lastName}</td>
-                  <td className="px-6 py-3 text-muted">{a.phone}</td>
-                  <td className="px-6 py-3 text-muted">{a.course}</td>
-                  <td className="px-6 py-3 text-muted">
-                    {a.createdAt ? new Date(a.createdAt.seconds * 1000).toLocaleDateString() : "—"}
-                  </td>
+          <div className="overflow-x-auto">
+            <table className="w-full font-body text-sm">
+              <thead>
+                <tr className="border-b border-border text-left">
+                  <th className="px-6 py-3 font-semibold text-muted">Name</th>
+                  <th className="px-6 py-3 font-semibold text-muted">Phone</th>
+                  <th className="px-6 py-3 font-semibold text-muted">Course</th>
+                  <th className="px-6 py-3 font-semibold text-muted">Date</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {recent.map((a) => (
+                  <tr key={a.id} className="border-b border-border last:border-0">
+                    <td className="px-6 py-3 font-medium text-ink">{a.firstName} {a.lastName}</td>
+                    <td className="px-6 py-3 text-muted">{a.phone}</td>
+                    <td className="px-6 py-3 text-muted">{a.course}</td>
+                    <td className="px-6 py-3 text-muted">
+                      {a.createdAt ? new Date(a.createdAt.seconds * 1000).toLocaleDateString() : "—"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
     </div>
