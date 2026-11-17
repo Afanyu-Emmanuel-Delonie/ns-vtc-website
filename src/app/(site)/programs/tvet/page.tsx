@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: "TVET Training | NS-VTC",
   description:
     "Practical trade-based courses in construction, metalwork, woodworking and garment production at Newton Safety and Vocational Training Center.",
+  alternates: { canonical: "/programs/tvet" },
 };
 
 const patternCells = Array.from({ length: 25 }, (_, i) => {

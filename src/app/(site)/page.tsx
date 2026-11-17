@@ -47,14 +47,9 @@ export default function Home() {
       {/* From Our Blog */}
       <section className="border-t border-border px-[clamp(16px,5vw,64px)] py-[clamp(48px,6vw,80px)]">
         <div className="mx-auto max-w-(--container-site)">
-          <Reveal className="flex flex-col items-start gap-1 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-widest text-orange">From the Blog</span>
-              <h2 className="mt-1 font-heading text-2xl font-extrabold text-ink sm:text-3xl">Guides &amp; Resources</h2>
-            </div>
-            <Link href="/blog" className="font-body text-sm font-semibold text-navy transition-colors hover:underline">
-              All articles &rarr;
-            </Link>
+          <Reveal>
+            <span className="text-xs font-bold uppercase tracking-widest text-orange">From the Blog</span>
+            <h2 className="mt-1 font-heading text-2xl font-extrabold text-ink sm:text-3xl">Guides &amp; Resources</h2>
           </Reveal>
 
           <RevealGroup className="mt-8 grid grid-cols-1 gap-px overflow-hidden rounded-card border border-border bg-border sm:grid-cols-3">
