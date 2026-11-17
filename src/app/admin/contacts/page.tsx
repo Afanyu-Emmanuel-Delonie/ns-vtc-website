@@ -82,7 +82,7 @@ export default function ContactsPage() {
     <>
       {confirm && <ConfirmDialog message={confirm.message} onConfirm={confirm.onConfirm} onCancel={() => setConfirm(null)} />}
       <div className="flex flex-col gap-6">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <h1 className="font-heading text-2xl font-extrabold text-ink">Contact Messages</h1>
             <p className="mt-1 font-body text-sm text-muted">Messages submitted through the homepage contact form.</p>

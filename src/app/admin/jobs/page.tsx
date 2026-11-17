@@ -95,8 +95,8 @@ function JobForm({ initial, onSave, onCancel, saving }: {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      <div className="grid grid-cols-2 gap-4">
-        <div className="col-span-2">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="sm:col-span-2">
           <label className="mb-1 block font-body text-xs font-semibold text-muted">Job Title *</label>
           <input required className={inputClass} value={form.title} onChange={(e) => set("title", e.target.value)} placeholder="e.g. Welding Instructor" />
         </div>
@@ -112,7 +112,7 @@ function JobForm({ initial, onSave, onCancel, saving }: {
             {types.map((t) => <option key={t}>{t}</option>)}
           </select>
         </div>
-        <div className="col-span-2">
+        <div className="sm:col-span-2">
           <label className="mb-1 block font-body text-xs font-semibold text-muted">Location *</label>
           <input required className={inputClass} value={form.location} onChange={(e) => set("location", e.target.value)} />
         </div>
@@ -286,7 +286,7 @@ export default function JobsPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="font-heading text-2xl font-extrabold text-ink">Jobs</h1>
           <p className="mt-1 font-body text-sm text-muted">Manage open positions shown on the careers page.</p>
@@ -337,39 +337,41 @@ export default function JobsPage() {
             />
           )
         ) : (
-          <table className="w-full font-body text-sm">
-            <thead>
-              <tr className="border-b border-border bg-surface text-left">
-                <th className="px-5 py-3 font-semibold text-muted">Title</th>
-                <th className="px-5 py-3 font-semibold text-muted">Department</th>
-                <th className="px-5 py-3 font-semibold text-muted">Type</th>
-                <th className="px-5 py-3 font-semibold text-muted">Location</th>
-                <th className="px-5 py-3 font-semibold text-muted"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {visible.map((j) => (
-                <tr key={j.id} className="border-b border-border last:border-0 hover:bg-surface/60">
-                  <td className="px-5 py-3 font-medium text-ink">{j.title}</td>
-                  <td className="px-5 py-3">
-                    <span className={`rounded-full px-2 py-0.5 text-xs font-semibold ${deptColors[j.department] ?? "bg-surface text-muted"}`}>{j.department}</span>
-                  </td>
-                  <td className="px-5 py-3 text-muted">{j.type}</td>
-                  <td className="px-5 py-3 text-muted">{j.location}</td>
-                  <td className="px-5 py-3">
-                    <div className="flex gap-3">
-                      <button onClick={() => { setViewing(j); setMode("view"); }} className="font-body text-xs font-semibold text-navy hover:underline">View</button>
-                      <button onClick={() => { setEditing(j); setMode("edit"); }} className="font-body text-xs font-semibold text-muted hover:underline">Edit</button>
-                      <button onClick={() => toggleArchive(j)} className="font-body text-xs font-semibold text-muted hover:underline">
-                        {j.archived ? "Restore" : "Archive"}
-                      </button>
-                      <button onClick={() => handleDelete(j.id)} className="font-body text-xs font-semibold text-red-600 hover:underline">Delete</button>
-                    </div>
-                  </td>
+          <div className="overflow-x-auto">
+            <table className="w-full font-body text-sm">
+              <thead>
+                <tr className="border-b border-border bg-surface text-left">
+                  <th className="px-5 py-3 font-semibold text-muted">Title</th>
+                  <th className="px-5 py-3 font-semibold text-muted">Department</th>
+                  <th className="px-5 py-3 font-semibold text-muted">Type</th>
+                  <th className="px-5 py-3 font-semibold text-muted">Location</th>
+                  <th className="px-5 py-3 font-semibold text-muted"></th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {visible.map((j) => (
+                  <tr key={j.id} className="border-b border-border last:border-0 hover:bg-surface/60">
+                    <td className="px-5 py-3 font-medium text-ink">{j.title}</td>
+                    <td className="px-5 py-3">
+                      <span className={`rounded-full px-2 py-0.5 text-xs font-semibold ${deptColors[j.department] ?? "bg-surface text-muted"}`}>{j.department}</span>
+                    </td>
+                    <td className="px-5 py-3 text-muted">{j.type}</td>
+                    <td className="px-5 py-3 text-muted">{j.location}</td>
+                    <td className="px-5 py-3">
+                      <div className="flex gap-3">
+                        <button onClick={() => { setViewing(j); setMode("view"); }} className="font-body text-xs font-semibold text-navy hover:underline">View</button>
+                        <button onClick={() => { setEditing(j); setMode("edit"); }} className="font-body text-xs font-semibold text-muted hover:underline">Edit</button>
+                        <button onClick={() => toggleArchive(j)} className="font-body text-xs font-semibold text-muted hover:underline">
+                          {j.archived ? "Restore" : "Archive"}
+                        </button>
+                        <button onClick={() => handleDelete(j.id)} className="font-body text-xs font-semibold text-red-600 hover:underline">Delete</button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
     </div>
